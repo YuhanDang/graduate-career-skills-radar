@@ -1,0 +1,1615 @@
+{
+  "version": 1,
+  "description": "Project-maintained skill vocabulary. Exact canonical or alias matches only; not a complete skills taxonomy. Unmatched extracted terms remain available for review.",
+  "skills": [
+    {
+      "id": "c",
+      "label": "C",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "c++",
+      "label": "C++",
+      "category": "Programming and software",
+      "aliases": [
+        "cpp"
+      ]
+    },
+    {
+      "id": "c#",
+      "label": "C#",
+      "category": "Programming and software",
+      "aliases": [
+        "c sharp"
+      ]
+    },
+    {
+      "id": ".net",
+      "label": ".NET",
+      "category": "Programming and software",
+      "aliases": [
+        "dotnet",
+        "dot net"
+      ]
+    },
+    {
+      "id": "asp.net",
+      "label": "ASP.NET",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "python",
+      "label": "Python",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "r",
+      "label": "R",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "java",
+      "label": "Java",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "javascript",
+      "label": "JavaScript",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "html",
+      "label": "HTML",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "css",
+      "label": "CSS",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "sql",
+      "label": "SQL",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "bash",
+      "label": "Bash",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "powershell",
+      "label": "PowerShell",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "php",
+      "label": "PHP",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "ruby",
+      "label": "Ruby",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "go",
+      "label": "Go",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "rust",
+      "label": "Rust",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "swift",
+      "label": "Swift",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "kotlin",
+      "label": "Kotlin",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "scala",
+      "label": "Scala",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "matlab",
+      "label": "MATLAB",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "sas",
+      "label": "SAS",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "spss",
+      "label": "SPSS",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "visual basic",
+      "label": "Visual Basic",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "vba",
+      "label": "VBA",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "react",
+      "label": "React",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "angular",
+      "label": "Angular",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "vue.js",
+      "label": "Vue.js",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "node.js",
+      "label": "Node.js",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "django",
+      "label": "Django",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "flask",
+      "label": "Flask",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "spring",
+      "label": "Spring",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "spring boot",
+      "label": "Spring Boot",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "jquery",
+      "label": "jQuery",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "bootstrap",
+      "label": "Bootstrap",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "git",
+      "label": "Git",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "github",
+      "label": "GitHub",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "gitlab",
+      "label": "GitLab",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "docker",
+      "label": "Docker",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "kubernetes",
+      "label": "Kubernetes",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "linux",
+      "label": "Linux",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "unix",
+      "label": "Unix",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "windows",
+      "label": "Windows",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "aws",
+      "label": "AWS",
+      "category": "Programming and software",
+      "aliases": [
+        "amazon web services"
+      ]
+    },
+    {
+      "id": "azure",
+      "label": "Azure",
+      "category": "Programming and software",
+      "aliases": [
+        "microsoft azure"
+      ]
+    },
+    {
+      "id": "google cloud",
+      "label": "Google Cloud",
+      "category": "Programming and software",
+      "aliases": [
+        "gcp",
+        "google cloud platform"
+      ]
+    },
+    {
+      "id": "terraform",
+      "label": "Terraform",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "jenkins",
+      "label": "Jenkins",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "ci/cd",
+      "label": "CI/CD",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "devops",
+      "label": "DevOps",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "rest apis",
+      "label": "REST APIs",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "api development",
+      "label": "API development",
+      "category": "Programming and software",
+      "aliases": [
+        "api",
+        "apis",
+        "application programming interfaces"
+      ]
+    },
+    {
+      "id": "software development",
+      "label": "Software development",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "software engineering",
+      "label": "Software engineering",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "software testing",
+      "label": "Software testing",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "unit testing",
+      "label": "Unit testing",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "integration testing",
+      "label": "Integration testing",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "quality assurance",
+      "label": "Quality assurance",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "object-oriented programming",
+      "label": "Object-oriented programming",
+      "category": "Programming and software",
+      "aliases": [
+        "object oriented programming",
+        "oop"
+      ]
+    },
+    {
+      "id": "data structures",
+      "label": "Data structures",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "algorithms",
+      "label": "Algorithms",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "debugging",
+      "label": "Debugging",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "version control",
+      "label": "Version control",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "web development",
+      "label": "Web development",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "mobile development",
+      "label": "Mobile development",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "database design",
+      "label": "Database design",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "sql server",
+      "label": "SQL Server",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "mysql",
+      "label": "MySQL",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "postgresql",
+      "label": "PostgreSQL",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "oracle",
+      "label": "Oracle",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "mongodb",
+      "label": "MongoDB",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "snowflake",
+      "label": "Snowflake",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "databricks",
+      "label": "Databricks",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "spark",
+      "label": "Spark",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "hadoop",
+      "label": "Hadoop",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "etl",
+      "label": "ETL",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "data engineering",
+      "label": "Data engineering",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "cloud computing",
+      "label": "Cloud computing",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "cybersecurity",
+      "label": "Cybersecurity",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "networking",
+      "label": "Networking",
+      "category": "Programming and software",
+      "aliases": []
+    },
+    {
+      "id": "data analysis",
+      "label": "Data analysis",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data analytics",
+      "label": "Data analytics",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "business analysis",
+      "label": "Business analysis",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "business intelligence",
+      "label": "Business intelligence",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data visualization",
+      "label": "Data visualization",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data modeling",
+      "label": "Data modeling",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data mining",
+      "label": "Data mining",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data management",
+      "label": "Data management",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data warehousing",
+      "label": "Data warehousing",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data science",
+      "label": "Data science",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "machine learning",
+      "label": "Machine learning",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "artificial intelligence",
+      "label": "Artificial intelligence",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "deep learning",
+      "label": "Deep learning",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "natural language processing",
+      "label": "Natural language processing",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "statistics",
+      "label": "Statistics",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "statistical analysis",
+      "label": "Statistical analysis",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "mathematics",
+      "label": "Mathematics",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "linear algebra",
+      "label": "Linear algebra",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "calculus",
+      "label": "Calculus",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "probability",
+      "label": "Probability",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "regression analysis",
+      "label": "Regression analysis",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "predictive modeling",
+      "label": "Predictive modeling",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "forecasting",
+      "label": "Forecasting",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "a/b testing",
+      "label": "A/B testing",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "research",
+      "label": "Research",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data interpretation",
+      "label": "Data interpretation",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data cleaning",
+      "label": "Data cleaning",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "data collection",
+      "label": "Data collection",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "requirements gathering",
+      "label": "Requirements gathering",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "requirements analysis",
+      "label": "Requirements analysis",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "business requirements",
+      "label": "Business requirements",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "process improvement",
+      "label": "Process improvement",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "process mapping",
+      "label": "Process mapping",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "user stories",
+      "label": "User stories",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "systems analysis",
+      "label": "Systems analysis",
+      "category": "Data and business analysis",
+      "aliases": [
+        "system analysis",
+        "handson systems analysis experience"
+      ]
+    },
+    {
+      "id": "system modeling",
+      "label": "System modeling",
+      "category": "Data and business analysis",
+      "aliases": [
+        "ipo (input process output) system modeling"
+      ]
+    },
+    {
+      "id": "management information systems",
+      "label": "Management information systems",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "tableau",
+      "label": "Tableau",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "power bi",
+      "label": "Power BI",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "looker",
+      "label": "Looker",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "excel",
+      "label": "Excel",
+      "category": "Data and business analysis",
+      "aliases": [
+        "microsoft excel",
+        "ms excel"
+      ]
+    },
+    {
+      "id": "pivot tables",
+      "label": "Pivot tables",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "vlookup",
+      "label": "VLOOKUP",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "power query",
+      "label": "Power Query",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "power pivot",
+      "label": "Power Pivot",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "google sheets",
+      "label": "Google Sheets",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "access",
+      "label": "Access",
+      "category": "Data and business analysis",
+      "aliases": []
+    },
+    {
+      "id": "accounting",
+      "label": "Accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "finance",
+      "label": "Finance",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial accounting",
+      "label": "Financial accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "cost accounting",
+      "label": "Cost accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "management accounting",
+      "label": "Management accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "accounting principles",
+      "label": "Accounting principles",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "accounting software",
+      "label": "Accounting software",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial reporting",
+      "label": "Financial reporting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial analysis",
+      "label": "Financial analysis",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial modeling",
+      "label": "Financial modeling",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial statements",
+      "label": "Financial statements",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial statement preparation",
+      "label": "Financial statement preparation",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "budgeting",
+      "label": "Budgeting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "journal entries",
+      "label": "Journal entries",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "general ledger",
+      "label": "General ledger",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "accounts payable",
+      "label": "Accounts payable",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "accounts receivable",
+      "label": "Accounts receivable",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "bank reconciliation",
+      "label": "Bank reconciliation",
+      "category": "Finance and accounting",
+      "aliases": [
+        "bank reconciliations"
+      ]
+    },
+    {
+      "id": "account reconciliation",
+      "label": "Account reconciliation",
+      "category": "Finance and accounting",
+      "aliases": [
+        "account reconciliations"
+      ]
+    },
+    {
+      "id": "bookkeeping",
+      "label": "Bookkeeping",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "reconciliation",
+      "label": "Reconciliation",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "auditing",
+      "label": "Auditing",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "internal controls",
+      "label": "Internal controls",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "tax preparation",
+      "label": "Tax preparation",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "tax accounting",
+      "label": "Tax accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "tax compliance",
+      "label": "Tax compliance",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "payroll",
+      "label": "Payroll",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "payroll processing",
+      "label": "Payroll processing",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "variance analysis",
+      "label": "Variance analysis",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "gaap",
+      "label": "GAAP",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "ifrs",
+      "label": "IFRS",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "fixed assets",
+      "label": "Fixed assets",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "balance sheet",
+      "label": "Balance sheet",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "cash flow analysis",
+      "label": "Cash flow analysis",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "invoicing",
+      "label": "Invoicing",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "inventory management",
+      "label": "Inventory management",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "project accounting",
+      "label": "Project accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "month-end close",
+      "label": "Month-end close",
+      "category": "Finance and accounting",
+      "aliases": [
+        "monthend close",
+        "monthend closing",
+        "month end close",
+        "month end closing"
+      ]
+    },
+    {
+      "id": "quickbooks",
+      "label": "QuickBooks",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "netsuite",
+      "label": "NetSuite",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "sap",
+      "label": "SAP",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "erp systems",
+      "label": "ERP systems",
+      "category": "Finance and accounting",
+      "aliases": [
+        "erp"
+      ]
+    },
+    {
+      "id": "risk management",
+      "label": "Risk management",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "compliance",
+      "label": "Compliance",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "financial planning",
+      "label": "Financial planning",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "revenue recognition",
+      "label": "Revenue recognition",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "accrual accounting",
+      "label": "Accrual accounting",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "account management",
+      "label": "Account management",
+      "category": "Finance and accounting",
+      "aliases": []
+    },
+    {
+      "id": "marketing",
+      "label": "Marketing",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "digital marketing",
+      "label": "Digital marketing",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "content creation",
+      "label": "Content creation",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "content marketing",
+      "label": "Content marketing",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "social media management",
+      "label": "Social media management",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "social media marketing",
+      "label": "Social media marketing",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "seo",
+      "label": "SEO",
+      "category": "Marketing and design",
+      "aliases": [
+        "search engine optimization"
+      ]
+    },
+    {
+      "id": "sem",
+      "label": "SEM",
+      "category": "Marketing and design",
+      "aliases": [
+        "search engine marketing"
+      ]
+    },
+    {
+      "id": "email marketing",
+      "label": "Email marketing",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "market research",
+      "label": "Market research",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "marketing analytics",
+      "label": "Marketing analytics",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "brand management",
+      "label": "Brand management",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "campaign management",
+      "label": "Campaign management",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "copywriting",
+      "label": "Copywriting",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "graphic design",
+      "label": "Graphic design",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "web design",
+      "label": "Web design",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "adobe creative suite",
+      "label": "Adobe Creative Suite",
+      "category": "Marketing and design",
+      "aliases": [
+        "adobe creative cloud"
+      ]
+    },
+    {
+      "id": "photoshop",
+      "label": "Photoshop",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "illustrator",
+      "label": "Illustrator",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "indesign",
+      "label": "InDesign",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "figma",
+      "label": "Figma",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "canva",
+      "label": "Canva",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "google analytics",
+      "label": "Google Analytics",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "google ads",
+      "label": "Google Ads",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "salesforce",
+      "label": "Salesforce",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "hubspot",
+      "label": "HubSpot",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "crm",
+      "label": "CRM",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "public relations",
+      "label": "Public relations",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "video editing",
+      "label": "Video editing",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "photography",
+      "label": "Photography",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "event planning",
+      "label": "Event planning",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "customer relationship management",
+      "label": "Customer relationship management",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "sales",
+      "label": "Sales",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "customer service",
+      "label": "Customer service",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "lead generation",
+      "label": "Lead generation",
+      "category": "Marketing and design",
+      "aliases": []
+    },
+    {
+      "id": "communication",
+      "label": "Communication",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "communication skills",
+        "communications"
+      ]
+    },
+    {
+      "id": "written communication",
+      "label": "Written communication",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "verbal communication",
+      "label": "Verbal communication",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "presentation skills",
+      "label": "Presentation skills",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "interpersonal skills",
+      "label": "Interpersonal skills",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "teamwork",
+      "label": "Teamwork",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "team player",
+        "team collaboration"
+      ]
+    },
+    {
+      "id": "collaboration",
+      "label": "Collaboration",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "analytical skills",
+      "label": "Analytical skills",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "analytical thinking",
+      "label": "Analytical thinking",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "critical thinking",
+      "label": "Critical thinking",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "problem solving",
+      "label": "Problem solving",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "problemsolving",
+        "problemsolving skills",
+        "problem-solving",
+        "problem solving skills"
+      ]
+    },
+    {
+      "id": "attention to detail",
+      "label": "Attention to detail",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "detailoriented",
+        "detail-oriented",
+        "detail oriented"
+      ]
+    },
+    {
+      "id": "time management",
+      "label": "Time management",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "organizational skills",
+      "label": "Organizational skills",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "organization",
+        "organization skills"
+      ]
+    },
+    {
+      "id": "project management",
+      "label": "Project management",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "stakeholder management",
+      "label": "Stakeholder management",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "leadership",
+      "label": "Leadership",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "decision making",
+      "label": "Decision making",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "prioritization",
+      "label": "Prioritization",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "documentation",
+      "label": "Documentation",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "troubleshooting",
+      "label": "Troubleshooting",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "adaptability",
+      "label": "Adaptability",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "multitasking",
+      "label": "Multitasking",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "independent work",
+      "label": "Independent work",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "negotiation",
+      "label": "Negotiation",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "training",
+      "label": "Training",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "conflict resolution",
+      "label": "Conflict resolution",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "strategic planning",
+      "label": "Strategic planning",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "agile",
+      "label": "Agile",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "scrum",
+      "label": "Scrum",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "kanban",
+      "label": "Kanban",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "jira",
+      "label": "Jira",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "confluence",
+      "label": "Confluence",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "microsoft office",
+      "label": "Microsoft Office",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "microsoft office suite",
+        "ms office"
+      ]
+    },
+    {
+      "id": "word",
+      "label": "Word",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "microsoft word",
+        "ms word"
+      ]
+    },
+    {
+      "id": "powerpoint",
+      "label": "PowerPoint",
+      "category": "Communication and professional practice",
+      "aliases": [
+        "microsoft powerpoint",
+        "ms powerpoint"
+      ]
+    },
+    {
+      "id": "outlook",
+      "label": "Outlook",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "visio",
+      "label": "Visio",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "sharepoint",
+      "label": "SharePoint",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "google workspace",
+      "label": "Google Workspace",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "microsoft teams",
+      "label": "Microsoft Teams",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "slack",
+      "label": "Slack",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "technical writing",
+      "label": "Technical writing",
+      "category": "Communication and professional practice",
+      "aliases": []
+    },
+    {
+      "id": "data entry",
+      "label": "Data entry",
+      "category": "Communication and professional practice",
+      "aliases": []
+    }
+  ]
+}
