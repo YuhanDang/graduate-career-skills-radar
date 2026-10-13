@@ -253,7 +253,7 @@ st.html("<style>" + font_rules + """
 :root {--career-blue:#00539f;--career-gold:#ffd200;--career-ink:#17324d;--career-muted:#526578;--career-line:#dbe4ed;}
 .stApp {font-family:'Open Sans',Arial,sans-serif;color:var(--career-ink);}
 .stApp input,.stApp button,.stApp select,.stApp textarea,.stApp [data-baseweb="select"] {font-family:'Open Sans',Arial,sans-serif;}
-.stMainBlockContainer {max-width:1440px;padding-top:3.75rem;padding-bottom:2rem;}
+.stMainBlockContainer {width:100%;max-width:none;padding:3.25rem clamp(1rem,2vw,2.5rem) 1.25rem;box-sizing:border-box;min-height:100dvh;}
 .stMainBlockContainer h1,.stMainBlockContainer h2,.stMainBlockContainer h3 {font-family:'Oswald','Arial Narrow',Arial,sans-serif;color:var(--career-blue);font-weight:600;}
 .stMainBlockContainer h1 {font-size:2rem;line-height:1.35;padding:0;margin:0;}
 .stMainBlockContainer h3 {font-size:1.25rem;line-height:1.45;padding:0;margin:0;}
@@ -463,7 +463,7 @@ with st.container(key="comparison"):
             st.session_state["focus_skill"] = "sql" if "sql" in available_skills else sorted(available_skills)[0]
         st.caption("Type a skill name or a few letters, press Enter, then select a matching skill.")
         query = st.text_input("Search the Skill Library", key="skill_search",
-                              placeholder="Try pyt, SQL, C or project management",
+                              placeholder="Search skills, e.g. Python or SQL",
                               help="Type part of a skill name and press Enter. Select a suggestion to update the comparison.")
         matches = search_skills(query, available_skills)
         if query.strip():
