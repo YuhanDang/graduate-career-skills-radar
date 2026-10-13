@@ -1,68 +1,79 @@
 # Graduate Career Skills Radar
 
-A career-readiness workshop planning dashboard for a U.S. university.
+A Career Services–hosted dashboard for U.S. university students exploring career pathways and choosing their next skill-learning topic.
+
+This README describes the student-version design. The previously deployed director-facing app will be revised to match it.
 
 **Team name:** [Add team name]  
 **Live app:** [Add deployed app URL]  
 **Repository:** [Add public GitHub repository URL]
 
-**Implementation status:** Data preparation, EDA, and the first Streamlit implementation are complete. Deployment is pending; the team-name placeholder must be replaced before submission.
-
 ## Step 1 — Dataset and Decision-Maker
 
 ### Dataset and provenance
 
-I independently selected [1.3M LinkedIn Jobs & Skills (2024) by asaniczka on Kaggle](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024) for my individual project. The source contains real-world LinkedIn job advertisements and extracted skill terms, rather than synthetic employment outcomes.
+I independently selected [1.3M LinkedIn Jobs & Skills (2024) by asaniczka on Kaggle](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024) for my individual submission. It contains real-world LinkedIn job advertisements and extracted skill labels, rather than synthetic student employment outcomes. I use the postings and skills files, joined by `job_link`.
 
-I use the postings and skills CSVs, joined by `job_link`. One row in the final dataset represents one job advertisement, not necessarily a distinct vacancy or hire. The source postings have first-seen dates from **January 12–17, 2024**. These are observation dates, not verified publication dates; the dataset does not establish how long each job was open.
+One row in the dashboard CSV represents one selected job advertisement. It does not necessarily represent a distinct vacancy, an available job today, or a hire. The source postings were first observed from **January 12–17, 2024**. These are collection dates, not verified publication dates or a complete period of recruiting activity.
 
-The original postings file contains 1,348,454 rows. To keep the app small, I selected advertisements using reproducible location and title rules in the EDA notebook, then exported **one dashboard input CSV containing 4,766 rows and 19 columns, approximately 5.484 MB**. This is rule-based selection, not a random or representative sample of the U.S. labor market.
+The original postings file contains **1,348,454 rows**. In the Pandas notebook, I reduced the source through reproducible location and title rules, joined the skill information, and exported **one CSV with 4,766 rows and 19 columns, approximately 5.484 MB**. This is rule-based selection, not random sampling. The selected records are not representative estimates of the entire U.S. labor market.
 
-### Audience and scope
+### One primary decision-maker
 
-The primary user is the **Director of Career Services at a U.S. university serving students in business, computing, and related programs**. The director plans career-readiness workshops and coordinates with advisers and employer partners.
+The dashboard is for **a U.S. university undergraduate preparing for an internship or first full-time role in business, computing, or a related field**. The student wants to compare career directions, investigate skill mentions in relevant advertisements, and decide which learning topic to pursue or discuss with a career adviser.
 
-The dashboard covers four career pathways: Data and Business Analytics, Finance and Accounting, Marketing, and Software Development.
+The university Career Services office is the potential institutional buyer and host. The student is the primary user and decision-maker; department directors are not a second primary audience for this version.
 
-U.S. locations are inferred from `job_location` using explicit country names, state abbreviations, and a documented metropolitan-area list. Ambiguous locations are excluded. `search_country` is search metadata and is not used as proof that a job is located in the United States.
+### Geographic and career scope
 
-Of the selected advertisements, **354 have explicit early-career title signals** and **4,412 match selected broader titles with eligibility unverified**. Broader titles are exact normalized-title matches from the unclear-stage group. They provide workshop-planning context but are not classified as confirmed entry-level opportunities. Neither group has been verified against full descriptions for experience, degree, or work-authorization eligibility.
+The selected advertisements cover:
 
-## Step 2 — Why a Dashboard?
+- Data and Business Analytics
+- Finance and Accounting
+- Marketing
+- Software Development
 
-### Who reviews it, and how often?
+U.S. location screening uses `job_location`, including explicit country names, state abbreviations, and a reviewed list of location labels. `search_country` is search metadata, not proof of job location. Ambiguous country locations were excluded. In the final selection, explicit state codes and reviewed single-state labels assign **4,612 advertisements** to a state; **154** remain `Unspecified`. Cross-state metropolitan areas are not forced into a single state.
 
-The director would review the production dashboard **monthly**, before planning the next cycle of workshops. The same questions recur: which skills deserve attention, which pathways share them, and whether the evidence comes from explicit early-career titles or broader roles.
+The dataset distinguishes **354 advertisements with explicit early-career title signals** from **4,412 broader title matches with eligibility unverified**. Broader matches come from selected exact normalized titles in the unclear-stage group. Neither group has been verified against full descriptions for experience, degree, or work-authorization requirements. The app will preserve these distinctions instead of labeling the whole selection as entry-level jobs.
 
-### What decision does it support?
+## Step 2 — Justify the Dashboard
 
-**If the Director of Career Services sees a frequently mentioned, teachable skill in a relevant pathway, they will review existing workshop coverage and decide whether to add, revise, or combine a workshop, considering student interest, staffing, and budget.**
+### 1. Who looks at it, and how often?
 
-For example, frequent SQL mentions in selected analytics advertisements would prompt a review of SQL workshop coverage and consultation with advisers. The dashboard does not by itself establish a student skill gap or prove that a workshop will improve employment outcomes.
+The student would review the production dashboard **weekly during active internship or job preparation**, and before a career-advising appointment. Outside an active search, a monthly review would be sufficient. The student returns when considering a different pathway or location, updating self-reported skills, or reconsidering a learning plan.
 
-### What happens without it?
+### 2. What decision does it support?
 
-In the assumed customer workflow, staff manually review advertisements, collect adviser observations, and maintain separate spreadsheets of possible workshop topics. Repeating this process consumes staff time and makes comparisons between pathways inconsistent. It can also lead staff to prioritize memorable examples rather than systematically counted evidence.
+**If a student sees a frequently mentioned skill in their target career pathway that they have not selected as a current skill, they will review relevant advertisement examples and choose a learning topic to discuss with a career adviser or pursue next.**
 
-This workflow is a business hypothesis, not a measured finding from a university interview. No numerical time savings or financial return is claimed.
+For example, a student considering analytics might investigate SQL after seeing frequent SQL mentions, inspect the associated advertisements, and discuss a SQL course or project with an adviser. Frequency is a starting point for investigation, not proof that a skill is essential for every role or the best next step for every student.
 
-### Why not an email, report, or alert?
+### 3. What does the student do today without it, and what does that cost?
 
-A report or poster can describe this historical snapshot once. The production dashboard earns its place through **regularly updated evidence and repeated comparisons during planning**: the director can change the pathway, analysis scope, and skill of interest without requesting a new report for each combination.
+In the assumed workflow, the student reads advertisements individually, takes notes on recurring skills, and consults broad career guides or an adviser. Comparing multiple career directions and locations requires repeating that work. Inconsistent notes or memorable individual advertisements can lead to an incomplete view and a poorly chosen learning priority.
 
-An email can distribute a summary, but cannot provide those comparisons directly. An alert can identify a change, but cannot provide enough context to decide which workshop to schedule. The frozen Kaggle app demonstrates the intended workflow; it does not currently monitor a changing market.
+The potential costs are time spent repeatedly compiling information and effort spent on a learning topic that is less relevant to the student's goals. These are workflow hypotheses, not measured interview findings; no quantified savings or placement improvement is claimed.
+
+### 4. Why a dashboard rather than an email, report, poster, or alert?
+
+A report or poster can communicate a fixed list of common skills. This dashboard supports a recurring decision with changing inputs: the same student can compare pathways and locations, distinguish title-based scopes, update self-reported skills, and inspect supporting advertisements as their preparation progresses.
+
+A weekly email could summarize changes but would not directly support all of those comparisons. An alert could flag a change but would not provide enough context to choose a learning topic. Embedding the tool in a university website makes it accessible; repeated review and action are what justify the dashboard.
+
+The frozen Kaggle prototype demonstrates this workflow. If the only goal were to describe this snapshot once, a report would be sufficient. Production value depends on refreshed data and continued student use.
 
 ### Commercial application
 
-The potential customer is a university Career Services office, with the director as the primary user and students as beneficiaries. A possible institutional subscription would provide refreshed advertisement data and consistent workshop-planning comparisons. The recurring programming decision provides a plausible customer need; purchasing demand, pricing, and willingness to pay still require interviews and a pilot. A production service would require a sustainable, appropriately licensed data source.
+A plausible delivery model is a university subscription for a student-facing tool linked from its Career Services website. The recurring need is career exploration and preparation between advising appointments. Institutional adoption would require student and staff interviews and a pilot to test usefulness and willingness to pay. The dataset alone does not establish market demand, employment benefits, or commercial data-use rights. Production would require a sustainable, appropriately licensed data source.
 
-## Step 3 — EDA and Dashboard Design
+## Step 3 — Decide What Matters
 
-### EDA findings
+### EDA and findings that influence the design
 
-The Pandas and Matplotlib notebook examines dataset shape, data types, missing values, categorical distributions, title signals, skill frequencies, and relationships between career pathway, analysis scope, and skill mentions.
+The notebook uses **Pandas and Matplotlib** to examine shape, data types, missing values, categorical distributions, title-stage signals, skill frequencies, and relationships between career pathway, analysis scope, and skill mentions.
 
-The source posting links and skill links are unique. The skill-record match rate is **96.14%**, but a matched record can still have a blank skill list. In the final selection, **4,697 advertisements have nonblank original skill lists**, while 69 do not.
+Both source files have unique `job_link` values. The skill-record match rate is **96.14%**, although a matched record can still have an empty skill list. In the final selection, **4,697 advertisements have nonblank original skill lists** and 69 do not.
 
 | Career pathway | Explicit early-career title signals | Broader title matches | Total advertisements | Nonblank skill lists |
 | --- | ---: | ---: | ---: | ---: |
@@ -72,113 +83,97 @@ The source posting links and skill links are unique. The skill-record match rate
 | Software Development | 52 | 606 | 658 | 648 |
 | **Total** | **354** | **4,412** | **4,766** | **4,697** |
 
-Analysis scope materially affects interpretation. SQL appears in **45.1%** of valid explicit early-career skill lists in analytics, compared with **33.2%** in the broader-title group. Marketing project management mentions are **25.0%** and **46.0%**, respectively. These are differences between selected groups, not changes over time. This finding justifies an analysis-scope control.
+The source `job_level` labels are inconsistent with some titles, so they are not used to confirm entry-level eligibility. Scope also affects skill patterns: SQL appears in **45.1%** of valid explicit early-career analytics lists versus **33.2%** of broader-title lists. Marketing project management mentions are **25.0%** versus **46.0%**. These are differences between selected cohorts, not temporal changes. The findings justify a visible analysis-scope control and cautious interpretation of small groups.
 
-### Three headline metrics
+### Three headline numbers
 
-The three metrics appear side by side using `st.metric` within `st.columns`.
+The student version will use `st.metric` side by side in `st.columns` for:
 
-| Metric | Definition | Decision value |
+| Metric | Definition | Why the student needs it |
 | --- | --- | --- |
-| Selected Advertisements | Advertisement count in the selected pathway and scope | Shows how much evidence supports the view |
-| Skill Information Coverage | Advertisements with nonblank original skill lists divided by all selected advertisements | Shows whether missing information weakens interpretation |
-| Selected Skill Mention Rate | Valid-skill advertisements mentioning the selected retained term divided by all valid-skill advertisements in the same pathway and scope | Shows how frequently the skill appears in the available evidence |
+| Selected Advertisements | Number of advertisements matching the pathway, state selection, and analysis scope | Establishes how much evidence supports the view |
+| Skill Information Coverage | Advertisements with nonblank original skill lists divided by all selected advertisements | Makes incomplete evidence visible |
+| Self-Reported Top-Skill Coverage | Displayed top skill terms selected by the student as current skills divided by the number of displayed top terms | Shows which frequently mentioned topics the student has and has not selected |
 
-Each skill counts at most once per advertisement. Selecting a skill does not first remove advertisements that lack it. Missing skill lists are not interpreted as evidence that a skill is unnecessary.
+The third metric compares exact normalized terms among up to eight displayed skills. It is an unweighted descriptive overlap, not an assessment of proficiency, qualification, employability, or hiring probability. With no displayed terms it is unavailable; with no skills selected, zero overlap reflects the current input rather than a verified lack of ability. Changes in the filters can change both the displayed skill set and this percentage.
 
 ### Two supporting charts
 
-1. **Top Skill Mentions in the Selected Pathway:** a horizontal bar chart of up to eight retained terms, to help identify workshop topics. It breaks down the evidence behind the headline metrics.
-2. **Selected Skill Across Career Pathways:** a bar chart showing the selected skill's mention rate across all four pathways, to help decide whether a workshop could serve multiple groups. It uses the selected state selection and analysis scope and displays each pathway's valid-record count.
+1. **Top Skill Mentions in the Selected Pathway:** a horizontal bar chart of up to eight retained terms. Color and labels distinguish terms selected as current skills from terms not selected. This breakdown explains the self-reported coverage metric and identifies topics worth investigating.
+2. **Selected Skill Across Career Pathways:** a bar chart comparing one skill's mention rate across all four pathways, using the same state selection and analysis scope. Each pathway displays its own valid-record count. This helps the student investigate whether a learning topic is relevant to more than one direction.
 
-The second chart intentionally compares all pathways rather than following the pathway selector; its caption explains this. No historical movement is claimed from this snapshot.
+Each term counts at most once per advertisement. Mention-rate denominators use nonblank **original** skill lists, even when qualification-like terms are withheld. Selecting a skill or changing the personal skill profile does not remove advertisements lacking that skill from these denominators. The historical prototype shows segment comparisons, not fabricated trend movement.
 
-### Necessary controls
+### Only necessary controls
 
-- **Target State:** a multi-select control for geographic markets relevant to the university. Leaving it empty includes all selected U.S. locations, including records with unspecified state. State selection affects all metrics, both charts, and examples. Explicit state codes and a limited reviewed label map assign states to 4,612 advertisements; 154 remain unspecified. Cross-state metropolitan labels are not forced into one state.
-- **Career Pathway:** focuses planning on a relevant student career direction.
-- **Analysis Scope:** separates all selected advertisements, explicit early-career title signals, and broader title matches with eligibility unverified.
-- **Skill of Interest:** supports investigation of a specific workshop topic and its relevance across pathways.
+- **Career Pathway:** chooses the career direction under consideration.
+- **Target State:** selects one or more employment locations. The all-location view includes `Unspecified` records.
+- **Analysis Scope:** distinguishes explicit early-career title signals, broader title matches with eligibility unverified, or all selected advertisements. It is not a verified experience-level filter.
+- **My Current Skills:** self-reported input that changes coverage, chart highlighting, and learning candidates without filtering the advertisement evidence.
+- **Skill of Interest:** selects a term for the cross-pathway chart and supporting examples.
 
-### Two things deliberately excluded
+Below the charts, **Skills to Explore** will list up to three unselected terms from the displayed ranking, ordered by mention rate. These are candidate discussion topics, not automatic learning prescriptions; students should consider their interests, prerequisites, and adviser guidance. If every displayed term is selected, the app will not invent a missing skill.
 
-- **Daily hiring growth:** first-seen dates reflect a short observation window and cannot reliably measure hiring growth.
-- **Remote-work share:** work arrangement does not directly guide workshop-topic selection, and the source is heavily concentrated in onsite records.
+### Two things deliberately not shown
 
-### Misleading data and how the design handles it
+1. **Salary estimates and skill–salary comparisons:** the dashboard input has no reliable structured salary field. Occasional salary text in titles cannot support a defensible median salary or salary premium.
+2. **Daily hiring growth:** first-seen dates span a short collection window and do not establish publication dates or hiring activity. A growth chart would imply evidence the data does not provide.
 
-| Issue | Handling |
+### Potentially misleading data and handling
+
+| Issue | Design response |
 | --- | --- |
-| Historical snapshot | Show the observation period and clearly distinguish intended production refresh from actual updates |
-| Unverified graduate eligibility and inconsistent `job_level` labels | Preserve title-based scope labels; explain that neither title rules nor `job_level` confirm eligibility |
-| Extracted labels include qualifications and inconsistent wording | Normalize case and whitespace; merge a small set of aliases; withhold rule-flagged degree, authorization, and similar terms from rankings while preserving raw information |
-| Missing skill lists | Display coverage; calculate mention rates using nonblank original lists, even after qualification-like terms are withheld |
-| Small groups and unequal coverage | Show valid-record counts and flag small groups; avoid interpreting percentages as precise market estimates |
-| Possible repeated advertisements | Retain flagged records, label counts as advertisements, and disclose the sensitivity analysis |
-| Volunteer advertisements and old links | Identify volunteer-title signals in examples; do not imply that listed jobs are paid or still available |
-| Heuristic pathway and location selection | Document the rules and acknowledge omissions and possible classification errors |
+| Old snapshot and possibly expired links | Keep a brief period and eligibility notice near the top; identify URLs as historical examples |
+| Unverified eligibility | Preserve scope labels and explain that title signals do not establish internship or graduate suitability |
+| Extracted labels and qualifications mixed together | Normalize terms, merge a limited alias set, and withhold rule-flagged degree, authorization, clearance, and numeric-experience terms; retain originals and flagged terms for inspection |
+| Missing lists and small groups | Show information coverage and valid-record counts; flag small selections; display unavailable rather than zero when no denominator exists |
+| Possible repeated advertisements | Keep duplicate flags, label counts as advertisements, and explain sensitivity to the counting method |
+| Volunteer titles | Flag examples so students do not assume every advertisement describes paid employment |
+| Geographic and title-selection errors | Explain heuristic rules, excluded ambiguous locations, and omitted title variants |
+| Self-reported skill choices | Explain exact-term overlap and avoid presenting it as a tested ability score or a personal skill-gap diagnosis |
 
-**Duplicate sensitivity:** 872 advertisements belong to possible duplicate groups based on normalized company, title, and location. Matching these fields does not prove that they represent one vacancy, so they were not automatically deleted. An alternative calculation counted each group once and combined its retained skill terms. Among the advertisement-level top ten skills in each pathway and scope, the largest absolute change was **5.78 percentage points**, for early-career Software Development JavaScript (34.69% to 40.48%). This alternative is a sensitivity check, not validated deduplication.
+There are **872 advertisements in possible duplicate groups** based on normalized company, title, and location. They remain because these fields do not prove that advertisements represent the same vacancy. A sensitivity analysis counted each comparison group once and combined its retained terms. Among advertisement-level top ten skills in each pathway and scope, the largest absolute difference was **5.78 percentage points**, for early-career Software Development JavaScript: 34.69% across 49 valid advertisements versus 40.48% across 42 valid groups. This is an alternative calculation, not validated deduplication.
 
-### Page order
+### Page order and rationale
 
-**Top:** title with team name, one-line audience caption, data-period line, essential controls, and the three headline metrics. The director first sees the size and completeness of the evidence and the prominence of the selected skill. The prototype cannot establish whether something changed or is wrong "right now."
+**Top:** a title with the team name, a one-line student audience caption, a brief historical-period notice, essential controls, self-reported skill input, and the three headline metrics. Students first see the evidence available and their selected overlap before scrolling. The snapshot cannot answer whether the live market changed today.
 
-**Middle:** the two charts explain the skill pattern and its relevance across pathways.
+**Middle:** the two charts explain the skill pattern and overlap. A short list of skills to explore connects the evidence to the next learning discussion.
 
-**Bottom:** expandable example advertisements and data notes let the director verify the evidence before discussing a workshop with advisers or employer partners. Examples show titles, companies, original locations, analysis scopes, retained terms, withheld qualifications, volunteer signals, possible-duplicate flags, and clickable original LinkedIn URLs. A checkbox restricts examples to advertisements mentioning the selected skill without changing headline denominators. Up to 50 examples are shown, sorted by company and title. Historical links may no longer work.
+**Bottom:** example advertisements provide titles, companies, original locations, scope labels, retained and withheld terms, flags, and original LinkedIn links. A skill-specific example filter affects only this detail view. Full **Data Notes and Limitations** appear as a separate, permanently expanded section at the very bottom, rather than a parallel collapsed panel. This keeps essential interpretation available while preserving the main decision sequence.
 
-A paper sketch of this layout must be completed before writing the app.
+The student layout should be sketched on paper before implementing the redesign.
 
-**Dashboard audience caption:**
+**One-line audience caption:**
 
-> For U.S. university Career Services directors planning skill workshops across four career pathways.
+> For U.S. university students exploring career pathways and choosing their next skill-learning topic.
 
-## Step 4 — Refresh Frequency and Action
+## Step 4 — Decide the Refresh Frequency
 
-### Data refresh
+### 1. How often should production data refresh?
 
-The production dashboard would refresh **weekly**. Workshop planning does not require minute-by-minute updates, and weekly collection provides recent evidence without the complexity of real-time processing. The submitted prototype uses a fixed Kaggle CSV and does not actually refresh external data.
+Production would refresh **weekly**. Advertisements change frequently, but students generally choose courses, projects, and advising actions over days or weeks. Weekly refresh supports those decisions without the collection and processing complexity of real-time updates. Current availability of a specific vacancy must still be checked at its source.
 
-### Review frequency
+The submitted prototype reads a fixed Kaggle CSV. It does not actually refresh external data.
 
-The director would review it **monthly**, when allocating workshop resources. Refresh and review are different: weekly updates prepare the evidence, while monthly reviews align with the decision cycle.
+### 2. How often should students review it?
 
-### Tracked metric and action trigger
+Students in active preparation would review it **weekly**, and before an advising appointment or a change in target pathway or location. They would update their self-reported selections after learning or completing a relevant project. Outside an active search, monthly review is sufficient.
 
-Production would track skill mention rates in comparable, non-overlapping monthly collection cohorts, keeping pathway definitions, analysis scope, extraction methods, and duplicate handling consistent.
+Refresh is a system schedule; review is a student action. They may both occur weekly during an active search, but students do not need to open the page whenever the system updates.
 
-A proposed trigger is a rise of at least **10 percentage points** from the previous month, with at least **100 advertisements containing usable skill lists in each compared cohort**. If the increase persists at the next monthly review, the director would contact advisers and employer partners to validate the signal and review workshop coverage before committing resources.
+### 3. What should be tracked, and what triggers action?
 
-The threshold is a proposed operating rule, not an empirically validated result. Small groups remain exploratory. This snapshot cannot test the rule, so the prototype will not display invented trend deltas or alerts.
+Production would track a selected skill's mention rate in comparable four-week collection cohorts, using consistent pathway, location, analysis scope, extraction, and duplicate rules. Compare the latest cohort with the preceding non-overlapping cohort rather than confusing filter changes with market changes.
 
-### Cost of stale data
+A proposed trigger is an increase of at least **10 percentage points**, with at least **100 advertisements containing usable skill lists in each cohort**. If the increase remains visible after the next weekly refresh and the student has not selected that skill, they would contact a career adviser, inspect example advertisements, and reconsider their learning plan. Students can explore existing high-frequency terms without waiting for this trigger.
 
-A one-day delay would usually have little effect on monthly scheduling. A one-week delay could omit recent signals from a planning meeting. Sustained staleness could lead staff to repeat outdated workshop topics and overlook emerging skills, wasting limited programming capacity. These are plausible operational costs, not measured financial losses.
+The threshold is a planning hypothesis, not an empirically validated rule. Persistence across refreshes is a follow-up check, not independent statistical confirmation. Smaller groups remain exploratory, and the historical snapshot cannot test this trigger or display a real change alert.
+
+### 4. What does stale data cost?
+
+A one-day delay is unlikely to change a course or project decision. A one-week delay could leave a student using an outdated shortlist during an application or advising discussion. Longer staleness could direct limited learning time toward older advertisement patterns or encourage reliance on expired job examples. These are plausible consequences, not measured financial losses.
 
 **Dashboard freshness line:**
 
-> Data: first observed Jan 12–17, 2024, Kaggle snapshot. Proposed production refresh: weekly; planning review: monthly.
-
-## Project Files and Submission Status
-
-- `app.py`: the Streamlit dashboard with four planning controls, three metrics, two charts, and linked advertisement examples.
-- `notebooks/eda.ipynb`: EDA, selection rules, skill processing, sensitivity analysis, and CSV export.
-- `data/career_postings_expanded.csv`: the single intended dashboard input, below approximately 25 MB.
-- `pyproject.toml` and `uv.lock`: the project initialized with `uv`, including dependencies and Python requirements.
-- `README.md`: the written decisions and justifications for Steps 1–4.
-
-The earlier 354-row export is local reference material; the expanded CSV is the intended deployment input. Original downloaded files are not intended for the public repository.
-
-Before submission, complete the required paper sketch if not already done, replace the team-name placeholder in `app.py`, visually review the app, publish the individual public repository, and deploy with **Python 3.14** selected in Streamlit Cloud Advanced settings. Update this document to match the finished app and replace the URL placeholders. Submit the deployed app URL and GitHub repository URL individually on Canvas.
-
-## Run Locally
-
-From the project root:
-
-```bash
-uv sync
-uv run streamlit run app.py
-```
-
-The CSV path is resolved relative to `app.py`; it does not depend on a personal Downloads directory. Reliable salary data is unavailable in the input and no salary metric is displayed.
+> Data: first observed Jan 12–17, 2024, Kaggle snapshot. Proposed production refresh: weekly; review weekly during active career preparation.
