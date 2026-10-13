@@ -243,10 +243,9 @@ def open_introduction():
 
 
 TOUR_STEPS = [
-    ("Choose your career direction", "Use Career direction to choose the kind of work you want to explore. The skills and learning topics update with your choice."),
-    ("Set your posting scope and location", "Posting scope controls title-based screening. Early-career title signals are more specific, but do not confirm eligibility. Select preferred states, or leave the field empty for all locations."),
-    ("Mark your current skills", "Select the skill chips that describe you. Your selections highlight the chart and update My selected top skills and Skills to Explore; they do not filter out job postings."),
-    ("Explore your next learning topic", "Compare Top Skill Mentions with Skills to Explore below. Then search a skill to compare career directions, and open Example Job Postings to check the evidence."),
+    ("Customize your view", "Choose a career direction, posting scope and preferred states to suit your interests. Leave states empty to include all locations. Title-based scope does not confirm job eligibility."),
+    ("Select your current skills", "Click the skill chips that describe you. Your selections update the chart highlights and suggested learning topics; they do not change which postings are counted."),
+    ("Compare a skill across career directions", "In Where Else Is This Skill Mentioned?, search a skill name, press Enter and select a match. Compare its mention rate across career directions using your chosen scope and states. Finish to return to the full dashboard."),
 ]
 
 
@@ -261,30 +260,42 @@ def close_tour():
 
 
 def move_tour(change):
-    st.session_state["tour_step"] = max(1, min(4, st.session_state.get("tour_step", 1) + change))
+    st.session_state["tour_step"] = max(1, min(len(TOUR_STEPS), st.session_state.get("tour_step", 1) + change))
 
 
 def show_tour():
-    step = st.session_state.get("tour_step", 0)
+    step = min(st.session_state.get("tour_step", 0), len(TOUR_STEPS))
+    st.session_state["tour_step"] = step
     if step:
         title, description = TOUR_STEPS[step - 1]
         with st.container(border=True, key="tour_panel"):
-            st.markdown(f"**Quick tour · {step} of 4 — {title}**")
+            st.markdown(f"**Quick tour · {step} of {len(TOUR_STEPS)} — {title}**")
             st.write(description)
             back, next_button, skip, _ = st.columns([1, 1, 1, 7], gap="small")
             back.button("Back", key="tour_back", disabled=step == 1, on_click=move_tour, args=(-1,))
-            next_button.button("Finish" if step == 4 else "Next →", key="tour_next", type="primary",
-                               on_click=close_tour if step == 4 else move_tour,
-                               args=() if step == 4 else (1,))
+            next_button.button("Finish" if step == len(TOUR_STEPS) else "Next →", key="tour_next", type="primary",
+                               on_click=close_tour if step == len(TOUR_STEPS) else move_tour,
+                               args=() if step == len(TOUR_STEPS) else (1,))
             skip.button("Skip tour", key="tour_skip", on_click=close_tour)
-        target = {1: ".st-key-filters [data-testid='stColumn']:nth-child(1)",
-                  2: ".st-key-filters [data-testid='stColumn']:nth-child(2), .st-key-filters [data-testid='stColumn']:nth-child(3)",
-                  3: ".st-key-skills", 4: ".st-key-primary"}[step]
-        st.html("<style>" + target + " {outline:2px solid #00539f;outline-offset:4px;border-radius:12px;background-color:#f0f6fc;}</style>")
+        target = {1: ".st-key-filters", 2: ".st-key-skills", 3: ".st-key-comparison"}[step]
+        focus_rules = ""
+        if step == 3:
+            # Keep widgets mounted so temporary presentation changes preserve their state.
+            focus_rules = (
+                "[data-testid='stLayoutWrapper']:has(> .st-key-filters),"
+                "[data-testid='stLayoutWrapper']:has(> .st-key-skills),"
+                "[data-testid='stLayoutWrapper']:has(> .st-key-metrics),"
+                "[data-testid='stLayoutWrapper']:has(> .st-key-context_note),"
+                "[data-testid='stLayoutWrapper']:has(> .st-key-primary),"
+                "[data-testid='stElementContainer']:has(.project-meta),"
+                "[data-testid='stElementContainer']:has(hr) {display:none!important;}"
+                ".st-key-comparison [data-testid='stVerticalBlock'] {gap:.45rem;}"
+            )
+        st.html("<style>" + target + " {box-shadow:inset 0 0 0 2px #00539f;border-radius:14px;background-color:#f0f6fc;}" + focus_rules + "</style>")
     elif not st.session_state.get("tour_dismissed", False):
         with st.container(key="tour_invitation"):
             message, start, skip = st.columns([4, 1, 1], vertical_alignment="center")
-            message.caption("First visit? Take a quick tour of the four steps.")
+            message.caption("First visit? Take a quick tour of the three steps.")
             start.button("Start tour", key="tour_start", on_click=start_tour)
             skip.button("Skip", key="tour_dismiss", on_click=close_tour)
 
@@ -299,7 +310,7 @@ st.html("<style>" + font_rules + """
 :root {--career-blue:#00539f;--career-gold:#ffd200;--career-ink:#17324d;--career-muted:#526578;--career-line:#dbe4ed;}
 .stApp {font-family:'Open Sans',Arial,sans-serif;color:var(--career-ink);}
 .stApp input,.stApp button,.stApp select,.stApp textarea,.stApp [data-baseweb="select"] {font-family:'Open Sans',Arial,sans-serif;}
-.stMainBlockContainer {width:100%;max-width:none;padding:3.25rem clamp(1rem,2vw,2.5rem) 1.25rem;box-sizing:border-box;min-height:100dvh;}
+.stMainBlockContainer {width:100%;max-width:1560px;margin-inline:auto;padding:3.25rem clamp(1rem,4vw,3.5rem) 1.75rem;box-sizing:border-box;min-height:100dvh;}
 .stMainBlockContainer h1,.stMainBlockContainer h2,.stMainBlockContainer h3 {font-family:'Oswald','Arial Narrow',Arial,sans-serif;color:var(--career-blue);font-weight:600;}
 .stMainBlockContainer h1 {font-size:2rem;line-height:1.35;padding:0;margin:0;}
 .stMainBlockContainer h3 {font-size:1.25rem;line-height:1.45;padding:0;margin:0;}
@@ -307,8 +318,8 @@ st.html("<style>" + font_rules + """
 .stMainBlockContainer [data-testid="stCaptionContainer"] {line-height:1.6;color:var(--career-muted);}
 .stMainBlockContainer [data-testid="stMarkdownContainer"] p {line-height:1.6;}
 .stMainBlockContainer [data-testid="stMetricValue"] {font-family:'Oswald',Arial,sans-serif;font-size:2rem;color:var(--career-blue);}
-.st-key-metrics {width:100%;max-width:1120px;}
-.st-key-filters {width:100%;max-width:1280px;}
+.st-key-metrics {width:100%;}
+.st-key-filters {width:100%;padding:.75rem;box-sizing:border-box;}
 .st-key-filters [data-testid="stWidgetLabel"] p {font-size:1.05rem;font-weight:600;color:var(--career-ink);}
 .st-key-filters [data-baseweb="select"] > div {min-height:48px;}
 .st-key-filters [data-baseweb="select"] {font-size:1rem;}
@@ -318,11 +329,12 @@ st.html("<style>" + font_rules + """
 .st-key-current_skills button {border-radius:999px;padding:.35rem .8rem;}
 .st-key-current_skills button[aria-pressed="true"],.st-key-current_skills button[aria-checked="true"] {background-color:#fff4b3!important;color:#17324d!important;border-color:#9c7d00!important;}
 .stMainBlockContainer [data-baseweb="select"] > div {border-radius:12px;}
-.st-key-primary {margin-top:.25rem;}
-.st-key-tour_panel {max-width:1280px;background:#f0f6fc;border-radius:14px;}
+.st-key-primary {margin-top:.25rem;padding:.75rem;box-sizing:border-box;}
+.st-key-comparison {padding:.75rem;box-sizing:border-box;}
+.st-key-tour_panel {width:100%;background:#f0f6fc;border-radius:14px;}
 .st-key-tour_panel [data-testid="stVerticalBlock"] {gap:.5rem;}
 .st-key-tour_panel button,.st-key-tour_invitation button,.st-key-tour_help button {border-radius:999px;}
-.st-key-tour_invitation {max-width:1280px;}
+.st-key-tour_invitation {width:100%;}
 .st-key-tour_help button {border:0;background:transparent;color:var(--career-blue);}
 .st-key-metrics [data-testid="stMetricLabel"] p {font-size:.9rem;}
 .st-key-primary h3,.st-key-comparison h3 {border:0;}
@@ -487,7 +499,8 @@ if not profile and len(top):
     context_note += " No skills selected: 0% reflects input, not ability."
 if SCOPES[scope_label] != "Explicit Early-Career Title Signal":
     context_note += " Broader-title eligibility is unverified."
-st.caption(context_note)
+with st.container(key="context_note"):
+    st.caption(context_note)
 
 if selected.empty:
     st.info("No job postings match this selection. Change the pathway, state, or analysis scope.")
