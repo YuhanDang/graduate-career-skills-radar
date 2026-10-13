@@ -3,11 +3,7 @@
 A Career Services–hosted dashboard for U.S. university students exploring career pathways and choosing their next skill-learning topic.
 
 **Group 3:** Yuhan Dang, Yanxi Wang, Wenbo Hu, Borui Su.
-
-This README describes the student version implemented locally. Upload the revised code and assets to update the deployed app.
-
-**Team name:** [Add team name]  
-**Live app:** [Add deployed app URL]  
+**Live app:** https://graduate-career-skills-radar.streamlit.app
 **Repository:** [Add public GitHub repository URL]
 
 ## Step 1 — Dataset and Decision-Maker
