@@ -6,7 +6,6 @@ A Career Services–hosted dashboard for U.S. university students exploring care
 
 This README describes the student version implemented locally. Upload the revised code and assets to update the deployed app.
 
-**Team name:** [Add team name]  
 **Live app:** [Add deployed app URL]  
 **Repository:** [Add public GitHub repository URL]
 
