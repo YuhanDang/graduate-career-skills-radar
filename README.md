@@ -13,7 +13,7 @@ A Career Services–hosted dashboard for U.S. university students exploring care
 
 ### Dataset and provenance
 
-I independently selected [1.3M LinkedIn Jobs & Skills (2024) by asaniczka on Kaggle](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024) for my individual submission. It contains real-world LinkedIn job job postings and extracted skill labels, rather than synthetic student employment outcomes. I use the postings and skills files, joined by `job_link`.
+I independently selected [1.3M LinkedIn Jobs & Skills (2024) by asaniczka on Kaggle](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024) for my individual submission. It contains real-world LinkedIn job postings and extracted skill labels, rather than synthetic student employment outcomes. I use the postings and skills files, joined by `job_link`.
 
 One row in the dashboard CSV represents one selected job posting. It does not necessarily represent a distinct vacancy, an available job today, or a hire. The source postings were first observed from **January 12–17, 2024**. These are collection dates, not verified publication dates or a complete period of recruiting activity.
 
@@ -36,7 +36,7 @@ The selected job postings cover:
 
 U.S. location screening uses `job_location`, including explicit country names, state abbreviations, and a reviewed list of location labels. `search_country` is search metadata, not proof of job location. Ambiguous country locations were excluded. In the final selection, explicit state codes and reviewed single-state labels assign **4,612 job postings** to a state; **154** remain `Unspecified`. Cross-state metropolitan areas are not forced into a single state.
 
-The dataset distinguishes **354 job postings with explicit early-career title signals** from **4,412 broader title matches with eligibility unverified**. Broader matches come from selected exact normalized titles in the unclear-stage group. Neither group has been verified against full descriptions for experience, degree, or work-authorization requirements. The app will preserve these distinctions instead of labeling the whole selection as entry-level jobs.
+The dataset distinguishes **354 job postings with explicit early-career title signals** from **4,412 broader title matches with eligibility unverified**. Broader matches come from selected exact normalized titles in the unclear-stage group. Neither group has been verified against full descriptions for experience, degree, or work-authorization requirements. The app preserves these distinctions instead of labeling the whole selection as entry-level jobs.
 
 ## Step 2 — Justify the Dashboard
 
@@ -72,7 +72,7 @@ A plausible delivery model is a university subscription for a student-facing too
 
 ### EDA and findings that influence the design
 
-The notebook uses **Pandas and Matplotlib** to examine shape, data types, missing values, categorical distributions, title-stage signals, skill frequencies, and relationships between career pathway, analysis scope, and skill mentions.
+The notebook uses **Pandas and Matplotlib** to examine shape, inferred sample data types, missing values, categorical distributions, title-stage signals, skill frequencies, and relationships between career pathway, analysis scope, and skill mentions. Its final student-facing analysis validates the exported CSV types and recomputes skill rankings and scope comparisons using the same maintained skill vocabulary as the app. Earlier exploratory outputs are retained and identified as preceding the current vocabulary.
 
 Both source files have unique `job_link` values. The skill-record match rate is **96.14%**, although a matched record can still have an empty skill list. In the final selection, **4,697 job postings have nonblank original skill lists** and 69 do not.
 
@@ -84,11 +84,11 @@ Both source files have unique `job_link` values. The skill-record match rate is 
 | Software Development | 52 | 606 | 658 | 648 |
 | **Total** | **354** | **4,412** | **4,766** | **4,697** |
 
-The source `job_level` labels are inconsistent with some titles, so they are not used to confirm entry-level eligibility. Scope also affects skill patterns: SQL appears in **45.1%** of valid explicit early-career analytics lists versus **33.2%** of broader-title lists. Marketing project management mentions are **25.0%** versus **46.0%**. These are differences between selected cohorts, not temporal changes. The findings justify a visible analysis-scope control and cautious interpretation of small groups.
+The source `job_level` labels are inconsistent with some titles, so they are not used to confirm entry-level eligibility. Scope also affects skill patterns: SQL appears in **45.1%** of valid explicit early-career analytics lists versus **33.4%** of broader-title lists under the current skill-library rules. Marketing project management mentions are **25.0%** versus **46.0%**. These are differences between selected cohorts, not temporal changes. The findings justify a visible analysis-scope control and cautious interpretation of small groups.
 
 ### Three headline numbers
 
-The student version will use `st.metric` side by side in `st.columns` for:
+The student version uses `st.metric` side by side in `st.columns` for:
 
 | Metric | Definition | Why the student needs it |
 | --- | --- | --- |
@@ -113,7 +113,7 @@ Each term counts at most once per job posting. Mention-rate denominators use non
 - **My Current Skills:** self-reported input that changes coverage, chart highlighting, and learning candidates without filtering the job posting evidence.
 - **Skill Library Search:** type a partial name and select a matching catalogued skill for the cross-pathway chart and supporting examples. Exact and prefix matches appear first, with A–Z ordering within each match tier; skills in the first chart remain ordered by mention rate.
 
-Below the charts, **Skills to Explore** will list up to three unselected terms from the displayed ranking, ordered by mention rate. These are candidate discussion topics, not automatic learning prescriptions; students should consider their interests, prerequisites, and adviser guidance. If every displayed term is selected, the app will not invent a missing skill.
+Beside Top Skill Mentions on desktop, and below it on smaller screens, **Skills to Explore** lists up to three unselected terms from the displayed ranking, ordered by mention rate. These are candidate discussion topics, not automatic learning prescriptions; students should consider their interests, prerequisites, and adviser guidance. If every displayed term is selected, the app will not invent a missing skill.
 
 ### Two things deliberately not shown
 
@@ -124,7 +124,7 @@ Below the charts, **Skills to Explore** will list up to three unselected terms f
 
 | Issue | Design response |
 | --- | --- |
-| Old snapshot and possibly expired links | Keep a brief period and eligibility notice near the top; identify URLs as historical examples |
+| Old snapshot and possibly expired links | Show the data period near the top; explain eligibility through scope labels, help text and Data Notes; identify URLs as historical examples |
 | Unverified eligibility | Preserve scope labels and explain that title signals do not establish internship or graduate suitability |
 | Extracted labels and qualifications mixed together | Normalize terms, merge a limited alias set, and withhold rule-flagged degree, authorization, clearance, and numeric-experience terms; retain originals and flagged terms for inspection |
 | Missing lists and small groups | Show information coverage and valid-record counts; flag small selections; display unavailable rather than zero when no denominator exists |
@@ -133,13 +133,13 @@ Below the charts, **Skills to Explore** will list up to three unselected terms f
 | Geographic and title-selection errors | Explain heuristic rules, excluded ambiguous locations, and omitted title variants |
 | Self-reported skill choices | Explain exact-term overlap and avoid presenting it as a tested ability score or a personal skill-gap diagnosis |
 
-There are **872 job postings in possible duplicate groups** based on normalized company, title, and location. They remain because these fields do not prove that job postings represent the same vacancy. An earlier sensitivity analysis counted each comparison group once and combined its retained terms. In the earlier exploratory analysis, before introducing the maintained skill library, in each pathway and scope had a largest absolute difference of **5.78 percentage points**, for early-career Software Development JavaScript: 34.69% across 49 valid job postings versus 40.48% across 42 valid groups. This is an alternative calculation, not validated deduplication.
+There are **872 job postings in possible duplicate groups** based on normalized company, title, and location. They remain because these fields do not prove that job postings represent the same vacancy. An earlier sensitivity analysis counted each comparison group once and combined its retained terms. Before introducing the maintained skill library, the sensitivity analysis compared the top ten skills in each pathway and scope. The largest absolute difference was **5.78 percentage points**, for early-career Software Development JavaScript: 34.69% across 49 valid job postings versus 40.48% across 42 valid groups. This is an alternative calculation, not validated deduplication.
 
 ### Page order and rationale
 
 **Introduction:** a project-specific AI-generated career-exploration illustration, a brief explanation, a three-step guide, group attribution, and one button lead into the dashboard. The introduction is separate from the analytical page and adds no extra charts or headline metrics. Students can return to it using the Introduction button.
 
-**Dashboard first screen:** a compact title, with the student audience caption and Group 3 member attribution alongside each other, historical-period notice, three essential filters, self-reported skill buttons, and three headline metrics. On wide screens, the top-skill chart and up to three learning candidates sit side by side, with approximately two-thirds of the row allocated to the chart. The student can assess the evidence and identify topics to investigate without needing to scroll through secondary comparisons.
+**Dashboard first screen:** a compact title, with Group 3 member attribution, the student audience caption and the data-period line on separate, left-aligned lines, historical-period notice, three essential filters, self-reported skill buttons, and three headline metrics. On wide screens, the top-skill chart and up to three learning candidates sit side by side, with approximately two-thirds of the row allocated to the chart. The headline evidence appears before secondary comparisons. Chart visibility depends on the window size; normal scrolling remains available, and the tour provides a focused comparison view.
 
 **Skill library and search:** the app uses `data/skill_catalog.json`, a maintained vocabulary of 256 named skills and tools with explicit aliases. Bullet markers and wrapping quotes are removed before exact matching. Salary text, numeric IDs, experience statements, and other unmatched descriptions are excluded from rankings and search; unrecognized terms are retained for review in the example table. Technical punctuation is preserved: `.NET`, `C++`, and `C#` are valid tool/language names. This initial vocabulary is incomplete and requires review before extension. Each canonical skill is counted once per posting; original nonblank-list denominators do not change.
 
@@ -149,13 +149,13 @@ There are **872 job postings in possible duplicate groups** based on normalized 
 
 **Detail and notes:** an expandable job posting table supports evidence checking through original links and retained/withheld terms. Full Data Notes and Limitations remain separately visible at the bottom as five compact, secondary-text items. Key historical, eligibility, and small-group cautions remain close to the relevant evidence.
 
-The layout uses available desktop width with a maximum reading width. The primary chart and learning candidates stack in smaller windows; filters and metrics stack on mobile. First-screen completeness is a desktop goal, not a reason to hide information or shrink text on small screens. Update the required paper sketch to reflect this design.
+The layout uses available desktop width with a maximum reading width. The primary chart and learning candidates stack in smaller windows; filters and metrics stack on mobile. First-screen completeness is a desktop goal, not a reason to hide information or shrink text on small screens. The paper sketch used to explain the design should reflect this student-facing layout.
 
 ### Visual style and asset use
 
 The interface references the University of Delaware's blue (`#00539F`) and gold (`#FFD200`) palette, condensed headings, and readable sans-serif body text. Open Sans and Oswald are bundled under SIL Open Font License 1.1, with notices in `assets/fonts/`. The University's [brand style guide](https://www.udel.edu/content/dam/udelImages/ocm/style-guide/brand-style-guide.pdf) lists these as digital alternatives when official fonts are unavailable. Gold identifies self-reported selections; blue identifies unselected skill terms and the cross-pathway chart, with text labels preserving the distinction.
 
-The project uses an original geometric compass icon rather than official university marks. It does not copy the university logo, seal, mascot, proprietary font files, or official website header. A visible note identifies this as an independent class project, not an official university service. The landing illustration depicts a student linking current skills to data analytics, finance, marketing and software directions. It is AI-generated illustrative artwork, clearly identified as such, rather than documentary photography or measured dataset results. The complete image is displayed without cropping, with a responsive text area beside it or below it on smaller screens. Asset sources and notices are recorded in `assets/CREDITS.md`.
+The project uses an original geometric compass icon rather than official university marks. It does not copy the university logo, seal, mascot, proprietary font files, or official website header. A visible note identifies this as an independent class project, not an official university service. The landing illustration depicts a student linking current skills to data analytics, finance, marketing and software directions. It is AI-generated illustrative artwork rather than documentary photography or measured dataset results. Its generation details are documented here and in `assets/CREDITS.md`; the introductory page omits a separate image-generation caption to keep the main content concise. The complete image is displayed without cropping, with a responsive text area beside it or below it on smaller screens. Asset sources and notices are recorded in `assets/CREDITS.md`.
 
 **One-line audience caption:**
 
@@ -189,4 +189,4 @@ A one-day delay is unlikely to change a course or project decision. A one-week d
 
 **Dashboard freshness line:**
 
-> Data: first observed Jan 12–17, 2024, Kaggle snapshot. Proposed production refresh: weekly; review weekly during active career preparation.
+> Data: first observed Jan 12–17, 2024, Kaggle snapshot. Proposed production refresh: weekly.
