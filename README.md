@@ -2,7 +2,9 @@
 
 A Career Services–hosted dashboard for U.S. university students exploring career pathways and choosing their next skill-learning topic.
 
-This README describes the student version implemented locally. The deployed app must be updated with the revised code.
+**Group 3:** Yuhan Dang, Yanxi Wang, Wenbo Hu, Borui Su.
+
+This README describes the student version implemented locally. Upload the revised code and assets to update the deployed app.
 
 **Team name:** [Add team name]  
 **Live app:** [Add deployed app URL]  
@@ -110,7 +112,7 @@ Each term counts at most once per advertisement. Mention-rate denominators use n
 - **Target State:** selects one or more employment locations. The all-location view includes `Unspecified` records.
 - **Analysis Scope:** distinguishes explicit early-career title signals, broader title matches with eligibility unverified, or all selected advertisements. It is not a verified experience-level filter.
 - **My Current Skills:** self-reported input that changes coverage, chart highlighting, and learning candidates without filtering the advertisement evidence.
-- **Skill of Interest:** selects a term for the cross-pathway chart and supporting examples.
+- **Skill of Interest:** selects a term for the cross-pathway chart and supporting examples. Terms are sorted A–Z by their displayed names for predictable navigation; skill ranks in the first chart remain ordered by mention rate.
 
 Below the charts, **Skills to Explore** will list up to three unselected terms from the displayed ranking, ordered by mention rate. These are candidate discussion topics, not automatic learning prescriptions; students should consider their interests, prerequisites, and adviser guidance. If every displayed term is selected, the app will not invent a missing skill.
 
@@ -136,13 +138,21 @@ There are **872 advertisements in possible duplicate groups** based on normalize
 
 ### Page order and rationale
 
-**First screen:** a compact title with team name, student audience caption, historical-period notice, three essential filters, self-reported skill buttons, and three headline metrics. On wide screens, the top-skill chart and up to three learning candidates sit side by side, with approximately two-thirds of the row allocated to the chart. The student can assess the evidence and identify topics to investigate without needing to scroll through secondary comparisons.
+**Introduction:** a licensed study-scene photograph, a brief explanation, a three-step guide, group attribution, and one button lead into the dashboard. The introduction is separate from the analytical page and adds no extra charts or headline metrics. Students can return to it using the Introduction button.
+
+**Dashboard first screen:** a compact title, with the student audience caption and Group 3 member attribution alongside each other, historical-period notice, three essential filters, self-reported skill buttons, and three headline metrics. On wide screens, the top-skill chart and up to three learning candidates sit side by side, with approximately two-thirds of the row allocated to the chart. The student can assess the evidence and identify topics to investigate without needing to scroll through secondary comparisons.
 
 **Further exploration:** the cross-pathway skill comparison appears below the primary decision view. Its selected term, locations, and scope are explicitly identified. Changing the skill, locations, or scope updates the underlying counts; changing personal selections does not alter advertisement mention rates.
 
 **Detail and notes:** an expandable advertisement table supports evidence checking through original links and retained/withheld terms. Full Data Notes and Limitations remain separately visible at the bottom as five compact, secondary-text items. Key historical, eligibility, and small-group cautions remain close to the relevant evidence.
 
 The layout uses available desktop width with a maximum reading width. The primary chart and learning candidates stack in smaller windows; filters and metrics stack on mobile. First-screen completeness is a desktop goal, not a reason to hide information or shrink text on small screens. Update the required paper sketch to reflect this design.
+
+### Visual style and asset use
+
+The interface references the University of Delaware's blue (`#00539F`) and gold (`#FFD200`) palette, condensed headings, and readable sans-serif body text. Open Sans and Oswald are bundled under SIL Open Font License 1.1, with notices in `assets/fonts/`. The University's [brand style guide](https://www.udel.edu/content/dam/udelImages/ocm/style-guide/brand-style-guide.pdf) lists these as digital alternatives when official fonts are unavailable. Gold identifies self-reported selections; blue identifies unselected skill terms and the cross-pathway chart, with text labels preserving the distinction.
+
+The project uses an original geometric compass icon rather than official university marks. It does not copy the university logo, seal, mascot, proprietary font files, or official website header. A visible note identifies this as an independent class project, not an official university service. The landing photograph is by [Vitaly Gariev on Unsplash](https://unsplash.com/photos/diverse-group-of-students-gathered-around-a-laptop-8gAbl776pc0), under the [Unsplash License](https://unsplash.com/license); the depicted people are not identified as UD students. Asset sources and notices are recorded in `assets/CREDITS.md`.
 
 **One-line audience caption:**
 
