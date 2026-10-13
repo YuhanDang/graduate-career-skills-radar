@@ -229,8 +229,7 @@ def show_project_meta():
         '<div class="project-meta">'
         f'<div class="project-team"><strong>{escape(TEAM_NAME)}:</strong> {escape(TEAM_MEMBERS)}</div>'
         '<div>For U.S. university students exploring career pathways and choosing their next skill-learning topic.</div>'
-        '<div>Data: first observed Jan 12–17, 2024, Kaggle snapshot. Proposed production refresh: weekly. '
-        'Skill selections are self-reported; job eligibility is unverified.</div></div>'
+        '<div>Data: first observed Jan 12–17, 2024, Kaggle snapshot. Proposed production refresh: weekly.</div></div>'
     )
 
 
@@ -294,9 +293,9 @@ def show_tour():
         st.html("<style>" + target + " {box-shadow:inset 0 0 0 2px #00539f;border-radius:14px;background-color:#f0f6fc;}" + focus_rules + "</style>")
     elif not st.session_state.get("tour_dismissed", False):
         with st.container(key="tour_invitation"):
-            message, start, skip = st.columns([4, 1, 1], vertical_alignment="center")
-            message.caption("First visit? Take a quick tour of the three steps.")
-            start.button("Start tour", key="tour_start", on_click=start_tour)
+            message, start, skip = st.columns([3.2, 1.1, .65], gap="small", vertical_alignment="center")
+            message.html('<div class="tour-invitation-copy"><strong>New here?</strong> Take a quick 3-step tour.</div>')
+            start.button("Start tour →", key="tour_start", on_click=start_tour, type="primary")
             skip.button("Skip", key="tour_dismiss", on_click=close_tour)
 
 
@@ -334,7 +333,12 @@ st.html("<style>" + font_rules + """
 .st-key-tour_panel {width:100%;background:#f0f6fc;border-radius:14px;}
 .st-key-tour_panel [data-testid="stVerticalBlock"] {gap:.5rem;}
 .st-key-tour_panel button,.st-key-tour_invitation button,.st-key-tour_help button {border-radius:999px;}
-.st-key-tour_invitation {width:100%;}
+.st-key-tour_invitation {width:100%;max-width:520px;padding:.65rem .8rem;background:#f3f7fb;border-radius:12px;}
+.tour-invitation-copy {font-size:.9rem;line-height:1.5;color:var(--career-ink);}
+.st-key-tour_start button [data-testid="stMarkdownContainer"] p {color:white!important;}
+.st-key-tour_start button {min-height:36px;padding:.3rem .8rem;background:var(--career-blue);color:white;border:0;}
+.st-key-tour_dismiss button {min-height:36px;padding:.3rem .5rem;border:0;background:transparent;color:var(--career-muted);}
+.st-key-tour_dismiss button:hover {background:#e6eef6;color:var(--career-blue);}
 .st-key-tour_help button {border:0;background:transparent;color:var(--career-blue);}
 .st-key-metrics [data-testid="stMetricLabel"] p {font-size:.9rem;}
 .st-key-primary h3,.st-key-comparison h3 {border:0;}
@@ -418,7 +422,6 @@ if st.query_params.get("view", "welcome") != "dashboard":
                 with column:
                     st.html(f'<div class="landing-step"><h3>{escape(title)}</h3><p>{escape(description)}</p></div>')
         show_project_meta()
-        st.caption("AI-generated illustration of career exploration and skill learning; not a real student scene or a representation of the dataset.")
     st.html('<div class="project-footer">Independent class project. Not an official University of Delaware service.</div>')
     st.stop()
 
