@@ -1,3 +1,4 @@
+import hashlib
 import json
 from collections import Counter
 from pathlib import Path
@@ -40,7 +41,7 @@ TERM_NAMES = {
     "sas": "SAS", "gaap": "GAAP", "seo": "SEO",
 }
 
-st.set_page_config(page_title="Graduate Career Skills Radar", layout="centered")
+st.set_page_config(page_title="Graduate Career Skills Radar", layout="wide")
 
 
 def term_name(term):
@@ -79,12 +80,23 @@ def sync_profile(visible_terms):
     )
 
 
+
+def render_chart(frame, spec, chart_name):
+    records = json.loads(frame.to_json(orient="records"))
+    spec = {**spec, "data": {"values": records},
+            "autosize": {"type": "fit-x", "contains": "padding"}}
+    identity = json.dumps(spec, sort_keys=True, ensure_ascii=False)
+    digest = hashlib.sha256(identity.encode()).hexdigest()[:16]
+    with st.container(key=f"chart_{chart_name}_{digest}"):
+        st.vega_lite_chart(spec=spec, width="stretch", key=f"{chart_name}_{digest}")
+
+
 def show_skill_chart(frame):
     spec = {
-        "height": {"step": 32},
+        "height": {"step": 27},
         "encoding": {
             "y": {"field": "skill", "type": "nominal", "sort": None,
-                  "axis": {"title": None, "labelLimit": 240}},
+                  "axis": {"title": None, "labelLimit": 190}},
             "x": {"field": "rate", "type": "quantitative",
                   "scale": {"domain": [0, 1]},
                   "axis": {"title": "Advertisements mentioning the term (%)", "format": ".0%"}},
@@ -108,15 +120,15 @@ def show_skill_chart(frame):
                           "text": {"field": "rate", "type": "quantitative", "format": ".1%"}}},
         ],
     }
-    st.vega_lite_chart(frame, spec, width="stretch")
+    render_chart(frame, spec, "top-skills")
 
 
-def show_comparison_chart(frame):
+def show_comparison_chart(frame, skill):
     spec = {
-        "height": {"step": 42},
+        "height": {"step": 36},
         "encoding": {
             "y": {"field": "pathway", "type": "nominal", "sort": None,
-                  "axis": {"title": None, "labelLimit": 240}},
+                  "axis": {"title": None, "labelLimit": 190}},
             "x": {"field": "rate", "type": "quantitative",
                   "scale": {"domain": [0, 1]},
                   "axis": {"title": "Advertisements mentioning the term (%)", "format": ".0%"}},
@@ -135,34 +147,58 @@ def show_comparison_chart(frame):
                           "text": {"field": "label"}}},
         ],
     }
-    st.vega_lite_chart(frame, spec, width="stretch")
+    spec["title"] = {"text": term_name(skill), "anchor": "start"}
+    render_chart(frame, spec, "cross-pathway")
 
 
-st.title("Graduate Career Skills Radar")
-st.caption(f"Team: {TEAM_NAME}")
+
+st.markdown("""
+<style>
+.stMainBlockContainer {max-width: 1440px; padding-top: 4rem; padding-bottom: 2rem;}
+.stMainBlockContainer h1 {font-size: 1.85rem; line-height: 1.25; padding-top: 0; padding-bottom: .15rem;}
+.stMainBlockContainer h3 {font-size: 1.15rem; line-height: 1.3; padding-top: .1rem; padding-bottom: .15rem;}
+.stMainBlockContainer [data-testid="stVerticalBlock"] {gap: .5rem;}
+.stMainBlockContainer [data-testid="stMetricValue"] {font-size: 1.9rem;}
+.st-key-skills [data-testid="stVerticalBlock"] {gap: .25rem;}
+.st-key-primary {margin-top: .15rem;}
+.st-key-data_notes [data-testid="stCaptionContainer"] {font-size: .875rem; line-height: 1.5;}
+@media (max-width: 1050px) {
+  .st-key-primary [data-testid="stHorizontalBlock"] {flex-direction: column;}
+  .st-key-primary [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {width: 100%; flex: 1 1 auto; min-width: 0;}
+}
+@media (max-width: 640px) {
+  .stMainBlockContainer {padding-left: 1rem; padding-right: 1rem; padding-top: 3.75rem;}
+  .stMainBlockContainer h1 {font-size: 1.45rem;}
+  .st-key-filters [data-testid="stHorizontalBlock"],
+  .st-key-metrics [data-testid="stHorizontalBlock"] {flex-direction: column;}
+  .st-key-filters [data-testid="stHorizontalBlock"] > [data-testid="stColumn"],
+  .st-key-metrics [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {width: 100%; flex: 1 1 auto; min-width: 0;}
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.title(f"Graduate Career Skills Radar — {TEAM_NAME}")
 st.caption("For U.S. university students exploring career pathways and choosing their next skill-learning topic.")
-st.caption(
-    "Data: first observed Jan 12–17, 2024, Kaggle snapshot. "
-    "Proposed production refresh: weekly; review weekly during active career preparation."
-)
+st.caption("Historical data: first observed Jan 12–17, 2024 · Kaggle snapshot · Proposed refresh: weekly · Review weekly during career preparation.")
 
 if not DATA_PATH.exists():
     st.error("The dashboard CSV is missing from the project's data folder.")
     st.stop()
 data = load_data(str(DATA_PATH), DATA_PATH.stat().st_mtime_ns)
 
-filter_columns = st.columns([1.2, 1.3, 1])
-with filter_columns[0]:
-    pathway = st.selectbox("Career Pathway", PATHWAYS, key="pathway")
-with filter_columns[1]:
-    scope_label = st.selectbox("Analysis Scope", list(SCOPES), key="scope")
-with filter_columns[2]:
-    states = st.multiselect(
-        "Target State", sorted(data["target_state"].unique()), key="states",
-        format_func=lambda code: STATE_NAMES.get(code, "Unspecified"),
-        placeholder="All selected U.S. locations",
-    )
-st.caption("No state selection includes all selected U.S. locations, including unspecified states. Title signals do not confirm graduate eligibility.")
+with st.container(key="filters"):
+    filter_columns = st.columns([1.2, 1.3, 1])
+    with filter_columns[0]:
+        pathway = st.selectbox("Career Pathway", PATHWAYS, key="pathway")
+    with filter_columns[1]:
+        scope_label = st.selectbox("Analysis Scope", list(SCOPES), key="scope")
+    with filter_columns[2]:
+        states = st.multiselect(
+            "Target State", sorted(data["target_state"].unique()), key="states",
+            format_func=lambda code: STATE_NAMES.get(code, "Unspecified"),
+            placeholder="All selected U.S. locations",
+            help="Leave empty for all selected U.S. locations, including unspecified states.",
+        )
 
 comparison_data = data.copy()
 if states:
@@ -175,9 +211,9 @@ top = summary.head(8).copy()
 valid_count = int(selected["has_valid_skills"].sum())
 
 profile = set(st.session_state.get("_skill_profile", []))
-with st.container(border=True):
+with st.container(border=True, key="skills"):
     st.subheader("My Current Skills")
-    st.caption("Select terms that describe your current skills. These are self-reported choices, not a proficiency assessment.")
+    st.caption("Select your current skills from these frequent terms. Self-reported; not a proficiency test.")
     if top.empty:
         st.info("No skill terms are available for this selection. Your session selections are retained.")
     else:
@@ -195,38 +231,56 @@ with st.container(border=True):
 selected_top_count = sum(term in profile for term in top["term"])
 information_coverage = valid_count / len(selected) if len(selected) else None
 profile_coverage = selected_top_count / len(top) if len(top) else None
-metrics = st.columns(3)
-metrics[0].metric("Selected Advertisements", f"{len(selected):,}", border=True)
-metrics[1].metric("Skill Information Coverage", f"{information_coverage:.1%}" if information_coverage is not None else "N/A", border=True)
-metrics[2].metric(
-    "Top-Skill Coverage",
-    f"{profile_coverage:.1%}" if profile_coverage is not None else "N/A",
-    border=True, help="Selected displayed skill terms divided by the number of displayed terms. Not a qualification or hiring score.",
-)
-st.caption(
-    f"{valid_count:,} nonblank original skill lists. "
-    + (f"{selected_top_count} of {len(top)} displayed terms selected. " if len(top) else "")
-    + "Mention rates describe extracted terms, not verified mandatory requirements."
-)
+with st.container(key="metrics"):
+    metrics = st.columns(3)
+    metrics[0].metric("Selected Advertisements", f"{len(selected):,}", border=True)
+    metrics[1].metric("Skill Information Coverage", f"{information_coverage:.1%}" if information_coverage is not None else "N/A", border=True)
+    metrics[2].metric(
+        "Top-Skill Coverage",
+        f"{profile_coverage:.1%}" if profile_coverage is not None else "N/A",
+        border=True, help="Selected displayed skill terms divided by the number of displayed terms. Not a qualification or hiring score.",
+    )
+
+context_note = f"{valid_count:,} nonblank skill lists · {selected_top_count}/{len(top)} displayed terms selected. Extracted mentions, not verified requirements."
 if not profile and len(top):
-    st.caption("No skills selected yet: 0% records your current input, not a verified lack of ability.")
+    context_note += " No skills selected: 0% reflects input, not ability."
 if SCOPES[scope_label] != "Explicit Early-Career Title Signal":
-    st.caption("Broader titles are included; experience and applicant eligibility are unverified.")
+    context_note += " Broader-title eligibility is unverified."
+st.caption(context_note)
+
 if selected.empty:
     st.info("No advertisements match this selection. Change the pathway, state, or analysis scope.")
 elif valid_count < 100:
-    st.warning("Small selected group: interpret these percentages cautiously. The 100-record flag is a display caution, not a statistical guarantee.")
+    st.warning("Small selection: fewer than 100 nonblank skill lists. Treat percentages as exploratory.")
 
-st.subheader("Top Skill Mentions")
-st.caption(f"{pathway} · Up to eight terms. Hover over a bar to inspect counts and your selection status.")
-if top.empty:
-    st.info("No retained skill ranking is available.")
-else:
-    top["profile_status"] = top["term"].apply(lambda term: "Selected as current" if term in profile else "Not selected")
-    top["label_position"] = top["rate"].clip(upper=0.86)
-    show_skill_chart(top)
+with st.container(key="primary"):
+    skill_column, next_column = st.columns([2.1, 1], gap="large")
+    with skill_column:
+        st.subheader("Top Skill Mentions")
+        st.caption("Up to eight terms. Hover to inspect counts and selection status.")
+        if top.empty:
+            st.info("No retained skill ranking is available.")
+        else:
+            top["profile_status"] = top["term"].apply(lambda term: "Selected as current" if term in profile else "Not selected")
+            top["label_position"] = top["rate"].clip(upper=0.86)
+            show_skill_chart(top)
+    with next_column:
+        st.subheader("Skills to Explore")
+        st.caption("Topics to investigate next — based on unselected terms.")
+        candidates = top.loc[~top["term"].isin(profile)].head(3)
+        if top.empty:
+            st.info("No learning candidates can be identified from this selection.")
+        elif candidates.empty:
+            st.success("You selected all displayed top terms. Review job examples or another pathway; this does not establish complete job readiness.")
+        else:
+            for number, row in enumerate(candidates.itertuples(index=False), 1):
+                st.markdown(f"**{number}. {term_name(row.term)}**")
+                st.caption(f"Mentioned in {row.rate:.1%} · {row.mentions} of {row.valid_records} nonblank lists")
+            st.caption("Review examples, then discuss interests and prerequisites with a career adviser before choosing a course or project.")
 
-st.subheader("Compare a Skill Across Career Pathways")
+st.divider()
+st.subheader("Where Else Is This Skill Mentioned?")
+st.caption("Explore whether a learning topic appears in other career directions.")
 if summary.empty:
     skill = None
     st.info("Choose a selection with retained skill terms to compare a skill.")
@@ -249,19 +303,10 @@ else:
             "note": note,
         })
     # A missing rate remains null. Only its text label is placed at zero.
-    show_comparison_chart(pd.DataFrame(comparison_rows))
+    location_label = ", ".join(STATE_NAMES.get(code, "Unspecified") for code in states) if states else "All selected U.S. locations"
+    st.caption(f"Showing: {term_name(skill)} · {location_label} · {scope_label}")
+    show_comparison_chart(pd.DataFrame(comparison_rows), skill)
     st.caption("All four pathways use the same target states and analysis scope. Each has its own nonblank-list denominator; N/A means no skill information, not zero demand.")
-
-st.subheader("Skills to Explore")
-candidates = top.loc[~top["term"].isin(profile)].head(3)
-if top.empty:
-    st.info("No learning candidates can be identified from this selection.")
-elif candidates.empty:
-    st.success("You selected all displayed top terms. Review job examples or another pathway; this does not establish complete job readiness.")
-else:
-    for number, row in enumerate(candidates.itertuples(index=False), 1):
-        st.markdown(f"**{number}. {term_name(row.term)}** — mentioned in {row.rate:.1%} of advertisements with skill information.")
-    st.caption("Unselected terms from the displayed ranking, ordered by mention rate. Review examples and discuss interests and prerequisites with a career adviser before choosing a course or project.")
 
 with st.expander("Example Advertisements"):
     only_mentions = st.checkbox("Show only advertisements mentioning the skill of interest", value=True, key="example_mentions")
@@ -289,17 +334,12 @@ with st.expander("Example Advertisements"):
         )
 
 st.divider()
-st.subheader("Data Notes and Limitations")
-st.markdown("""
-- **Historical snapshot:** first observed Jan 12–17, 2024. These are collection dates, not publication dates. The app does not refresh external data or establish current job availability.
-- **Unit of analysis:** one row is an advertisement, not a verified unique vacancy or hire. Possible repeated advertisements remain flagged.
-- **Eligibility:** title signals and location rules are heuristic. Neither early-career titles nor broader titles confirm experience, degree, or work-authorization eligibility. Volunteer-title flags do not verify compensation.
-- **Skill terms:** supplied labels are extracted. A limited alias map and provisional qualification screen remove some inconsistent wording and qualification-like terms; retained labels are not all manually validated requirements.
-- **Denominators:** mention rates use nonblank original skill lists, including lists whose qualification-like terms were withheld. Missing lists are excluded from rates and included in advertisement counts.
-- **Self-reported coverage:** exact-term overlap with up to eight displayed skills. It is not a proficiency test, hiring probability, or a verified personal skill gap. Selections are retained across filters in the current session; the app does not create a student account or durable profile.
-- **Geography:** the all-location view includes unspecified states. Cross-state areas are not forced into one state. Selection rules do not produce a representative U.S. market sample.
-- **Small groups:** always check valid-record counts. The display caution is not statistical validation.
-- **Unavailable information:** reliable salaries, graduate employment outcomes, student proficiency, and hiring growth cannot be calculated from this input.
-""")
-st.caption(f"Possible-duplicate flags in this selection: {int(selected['possible_duplicate'].sum()):,} advertisements.")
-st.markdown("Source: [1.3M LinkedIn Jobs & Skills (2024), asaniczka on Kaggle](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024)")
+with st.container(key="data_notes"):
+    st.markdown("**Data Notes and Limitations**")
+    st.caption("**Source & period.** LinkedIn advertisements first observed Jan 12–17, 2024. Observation dates are not publication dates. This historical CSV does not refresh or establish current availability; original links may have expired. Proposed production refresh: weekly.")
+    st.caption("**Interpretation.** Extracted mentions are not verified mandatory requirements. Title signals do not confirm graduate eligibility. Alias and qualification screening are provisional; originals and withheld terms remain available in examples. Volunteer signals do not establish pay.")
+    st.caption("**Personal coverage.** Self-reported exact-term overlap with up to eight displayed terms, not proficiency, job readiness, or hiring probability. Selections persist only in the current session. Unselected terms are discussion candidates, not diagnosed deficiencies.")
+    st.caption("**Sample quality.** Counts describe advertisements, not verified unique vacancies. Mention-rate denominators use nonblank original skill lists; withheld qualifications do not shrink them. Small groups and possible repeats can affect rates. Geographic/title rules are heuristic, and unspecified states remain in the all-location view. This is not a representative market sample.")
+    st.caption("**Unavailable data.** Reliable salary, student proficiency, graduate employment outcomes, and hiring growth are unavailable. A missing denominator is shown as N/A rather than zero demand.")
+    st.caption(f"This selection: {valid_count:,} nonblank skill lists; {int(selected['possible_duplicate'].sum()):,} advertisements flagged as possible repeats. The 100-record caution is not statistical validation.")
+    st.caption("Source: [1.3M LinkedIn Jobs & Skills (2024), asaniczka on Kaggle](https://www.kaggle.com/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024)")

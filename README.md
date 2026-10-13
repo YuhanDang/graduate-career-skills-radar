@@ -2,7 +2,7 @@
 
 A Career Services–hosted dashboard for U.S. university students exploring career pathways and choosing their next skill-learning topic.
 
-This README describes the student-version design. The previously deployed director-facing app will be revised to match it.
+This README describes the student version implemented locally. The deployed app must be updated with the revised code.
 
 **Team name:** [Add team name]  
 **Live app:** [Add deployed app URL]  
@@ -100,7 +100,7 @@ The third metric compares exact normalized terms among up to eight displayed ski
 ### Two supporting charts
 
 1. **Top Skill Mentions in the Selected Pathway:** a horizontal bar chart of up to eight retained terms. Color and labels distinguish terms selected as current skills from terms not selected. This breakdown explains the self-reported coverage metric and identifies topics worth investigating.
-2. **Selected Skill Across Career Pathways:** a bar chart comparing one skill's mention rate across all four pathways, using the same state selection and analysis scope. Each pathway displays its own valid-record count. This helps the student investigate whether a learning topic is relevant to more than one direction.
+2. **Where Else Is This Skill Mentioned?:** a bar chart comparing one skill's mention rate across all four pathways, using the same state selection and analysis scope. Each pathway displays its own valid-record count. This helps the student investigate whether a learning topic is relevant to more than one direction.
 
 Each term counts at most once per advertisement. Mention-rate denominators use nonblank **original** skill lists, even when qualification-like terms are withheld. Selecting a skill or changing the personal skill profile does not remove advertisements lacking that skill from these denominators. The historical prototype shows segment comparisons, not fabricated trend movement.
 
@@ -136,13 +136,13 @@ There are **872 advertisements in possible duplicate groups** based on normalize
 
 ### Page order and rationale
 
-**Top:** a title with the team name, a one-line student audience caption, a brief historical-period notice, essential controls, self-reported skill input, and the three headline metrics. Students first see the evidence available and their selected overlap before scrolling. The snapshot cannot answer whether the live market changed today.
+**First screen:** a compact title with team name, student audience caption, historical-period notice, three essential filters, self-reported skill buttons, and three headline metrics. On wide screens, the top-skill chart and up to three learning candidates sit side by side, with approximately two-thirds of the row allocated to the chart. The student can assess the evidence and identify topics to investigate without needing to scroll through secondary comparisons.
 
-**Middle:** the two charts explain the skill pattern and overlap. A short list of skills to explore connects the evidence to the next learning discussion.
+**Further exploration:** the cross-pathway skill comparison appears below the primary decision view. Its selected term, locations, and scope are explicitly identified. Changing the skill, locations, or scope updates the underlying counts; changing personal selections does not alter advertisement mention rates.
 
-**Bottom:** example advertisements provide titles, companies, original locations, scope labels, retained and withheld terms, flags, and original LinkedIn links. A skill-specific example filter affects only this detail view. Full **Data Notes and Limitations** appear as a separate, permanently expanded section at the very bottom, rather than a parallel collapsed panel. This keeps essential interpretation available while preserving the main decision sequence.
+**Detail and notes:** an expandable advertisement table supports evidence checking through original links and retained/withheld terms. Full Data Notes and Limitations remain separately visible at the bottom as five compact, secondary-text items. Key historical, eligibility, and small-group cautions remain close to the relevant evidence.
 
-The student layout should be sketched on paper before implementing the redesign.
+The layout uses available desktop width with a maximum reading width. The primary chart and learning candidates stack in smaller windows; filters and metrics stack on mobile. First-screen completeness is a desktop goal, not a reason to hide information or shrink text on small screens. Update the required paper sketch to reflect this design.
 
 **One-line audience caption:**
 
