@@ -94,8 +94,8 @@ The student version will use `st.metric` side by side in `st.columns` for:
 | Metric | Definition | Why the student needs it |
 | --- | --- | --- |
 | Selected Job Postings | Number of job postings matching the pathway, state selection, and analysis scope | Establishes how much evidence supports the view |
-| Skill Information Coverage | Job Postings with nonblank original skill lists divided by all selected job postings | Makes incomplete evidence visible |
-| Self-Reported Top-Skill Coverage | Displayed top skill terms selected by the student as current skills divided by the number of displayed top terms | Shows which frequently mentioned topics the student has and has not selected |
+| Postings with skill information | Job Postings with nonblank original skill lists divided by all selected job postings | Makes incomplete evidence visible |
+| My selected top skills | Displayed top skill terms selected by the student as current skills divided by the number of displayed top terms | Shows which frequently mentioned topics the student has and has not selected |
 
 The third metric compares exact normalized terms among up to eight displayed skills. It is an unweighted descriptive overlap, not an assessment of proficiency, qualification, employability, or hiring probability. With no displayed terms it is unavailable; with no skills selected, zero overlap reflects the current input rather than a verified lack of ability. Changes in the filters can change both the displayed skill set and this percentage.
 
@@ -108,9 +108,9 @@ Each term counts at most once per job posting. Mention-rate denominators use non
 
 ### Only necessary controls
 
-- **Career Pathway:** chooses the career direction under consideration.
-- **Target State:** selects one or more employment locations. The all-location view includes `Unspecified` records.
-- **Analysis Scope:** distinguishes explicit early-career title signals, broader title matches with eligibility unverified, or all selected job postings. It is not a verified experience-level filter.
+- **Career direction:** chooses the career direction under consideration.
+- **Preferred state(s):** selects one or more employment locations. The all-location view includes `Unspecified` records.
+- **Posting scope:** distinguishes explicit early-career title signals, broader title matches with eligibility unverified, or all selected job postings. It is not a verified experience-level filter.
 - **My Current Skills:** self-reported input that changes coverage, chart highlighting, and learning candidates without filtering the job posting evidence.
 - **Skill Library Search:** type a partial name and select a matching catalogued skill for the cross-pathway chart and supporting examples. Exact and prefix matches appear first, with A–Z ordering within each match tier; skills in the first chart remain ordered by mention rate.
 
@@ -143,6 +143,8 @@ There are **872 job postings in possible duplicate groups** based on normalized 
 **Dashboard first screen:** a compact title, with the student audience caption and Group 3 member attribution alongside each other, historical-period notice, three essential filters, self-reported skill buttons, and three headline metrics. On wide screens, the top-skill chart and up to three learning candidates sit side by side, with approximately two-thirds of the row allocated to the chart. The student can assess the evidence and identify topics to investigate without needing to scroll through secondary comparisons.
 
 **Skill library and search:** the app uses `data/skill_catalog.json`, a maintained vocabulary of 256 named skills and tools with explicit aliases. Bullet markers and wrapping quotes are removed before exact matching. Salary text, numeric IDs, experience statements, and other unmatched descriptions are excluded from rankings and search; unrecognized terms are retained for review in the example table. Technical punctuation is preserved: `.NET`, `C++`, and `C#` are valid tool/language names. This initial vocabulary is incomplete and requires review before extension. Each canonical skill is counted once per posting; original nonblank-list denominators do not change.
+
+**Optional quick tour:** first-session visitors can start or skip a four-step guide. The guide highlights career direction, scope/location, current skills, and the chart/learning-topic area. Back, Next, Skip and Finish change only guide state; filter settings and the skill profile are preserved. The How to use button restarts the guide. Completion is remembered within the current session, without cookies or a persistent student account. Prominent plain-language filter labels and narrower control/metric groups also support students who skip the guide.
 
 **Further exploration:** the cross-pathway skill comparison appears below the primary decision view. Students type part of a name (for example `pyt`), press Enter, and click a matching skill suggestion. Matches prioritize exact names, then prefixes, then contained text; ties use A–Z order. Search covers observed catalogued skills across the full dataset, so changing pathways does not hide a selected skill. Its selected term, locations, and scope are explicitly identified. Changing the skill, locations, or scope updates the underlying counts; changing personal selections does not alter job posting mention rates.
 

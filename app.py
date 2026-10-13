@@ -207,7 +207,6 @@ def show_comparison_chart(frame, skill):
                           "text": {"field": "label"}}},
         ],
     }
-    spec["title"] = {"text": term_name(skill), "anchor": "start"}
     render_chart(frame, spec, "cross-pathway")
 
 
@@ -243,6 +242,53 @@ def open_introduction():
     st.query_params["view"] = "welcome"
 
 
+TOUR_STEPS = [
+    ("Choose your career direction", "Use Career direction to choose the kind of work you want to explore. The skills and learning topics update with your choice."),
+    ("Set your posting scope and location", "Posting scope controls title-based screening. Early-career title signals are more specific, but do not confirm eligibility. Select preferred states, or leave the field empty for all locations."),
+    ("Mark your current skills", "Select the skill chips that describe you. Your selections highlight the chart and update My selected top skills and Skills to Explore; they do not filter out job postings."),
+    ("Explore your next learning topic", "Compare Top Skill Mentions with Skills to Explore below. Then search a skill to compare career directions, and open Example Job Postings to check the evidence."),
+]
+
+
+def start_tour():
+    st.session_state["tour_step"] = 1
+    st.session_state["tour_dismissed"] = True
+
+
+def close_tour():
+    st.session_state["tour_step"] = 0
+    st.session_state["tour_dismissed"] = True
+
+
+def move_tour(change):
+    st.session_state["tour_step"] = max(1, min(4, st.session_state.get("tour_step", 1) + change))
+
+
+def show_tour():
+    step = st.session_state.get("tour_step", 0)
+    if step:
+        title, description = TOUR_STEPS[step - 1]
+        with st.container(border=True, key="tour_panel"):
+            st.markdown(f"**Quick tour · {step} of 4 — {title}**")
+            st.write(description)
+            back, next_button, skip, _ = st.columns([1, 1, 1, 7], gap="small")
+            back.button("Back", key="tour_back", disabled=step == 1, on_click=move_tour, args=(-1,))
+            next_button.button("Finish" if step == 4 else "Next →", key="tour_next", type="primary",
+                               on_click=close_tour if step == 4 else move_tour,
+                               args=() if step == 4 else (1,))
+            skip.button("Skip tour", key="tour_skip", on_click=close_tour)
+        target = {1: ".st-key-filters [data-testid='stColumn']:nth-child(1)",
+                  2: ".st-key-filters [data-testid='stColumn']:nth-child(2), .st-key-filters [data-testid='stColumn']:nth-child(3)",
+                  3: ".st-key-skills", 4: ".st-key-primary"}[step]
+        st.html("<style>" + target + " {outline:2px solid #00539f;outline-offset:4px;border-radius:12px;background-color:#f0f6fc;}</style>")
+    elif not st.session_state.get("tour_dismissed", False):
+        with st.container(key="tour_invitation"):
+            message, start, skip = st.columns([4, 1, 1], vertical_alignment="center")
+            message.caption("First visit? Take a quick tour of the four steps.")
+            start.button("Start tour", key="tour_start", on_click=start_tour)
+            skip.button("Skip", key="tour_dismiss", on_click=close_tour)
+
+
 font_rules = ""
 for name, filename in [("Open Sans", "fonts/OpenSans.ttf"), ("Oswald", "fonts/Oswald.ttf")]:
     font_source = asset_url(filename)
@@ -261,13 +307,24 @@ st.html("<style>" + font_rules + """
 .stMainBlockContainer [data-testid="stCaptionContainer"] {line-height:1.6;color:var(--career-muted);}
 .stMainBlockContainer [data-testid="stMarkdownContainer"] p {line-height:1.6;}
 .stMainBlockContainer [data-testid="stMetricValue"] {font-family:'Oswald',Arial,sans-serif;font-size:2rem;color:var(--career-blue);}
-.st-key-metrics [data-testid="stMetric"] {border-radius:12px;border-top:3px solid var(--career-gold);background:#f8fafc;}
+.st-key-metrics {width:100%;max-width:1120px;}
+.st-key-filters {width:100%;max-width:1280px;}
+.st-key-filters [data-testid="stWidgetLabel"] p {font-size:1.05rem;font-weight:600;color:var(--career-ink);}
+.st-key-filters [data-baseweb="select"] > div {min-height:48px;}
+.st-key-filters [data-baseweb="select"] {font-size:1rem;}
+.st-key-metrics [data-testid="stMetric"] {padding:.65rem .9rem;border-radius:12px;border-top:3px solid var(--career-gold);background:#f8fafc;}
 .st-key-skills {border-radius:14px;border-left:4px solid var(--career-blue);background:#f7f9fc;}
 .st-key-skills [data-testid="stVerticalBlock"] {gap:.65rem;}
 .st-key-current_skills button {border-radius:999px;padding:.35rem .8rem;}
 .st-key-current_skills button[aria-pressed="true"],.st-key-current_skills button[aria-checked="true"] {background-color:#fff4b3!important;color:#17324d!important;border-color:#9c7d00!important;}
 .stMainBlockContainer [data-baseweb="select"] > div {border-radius:12px;}
 .st-key-primary {margin-top:.25rem;}
+.st-key-tour_panel {max-width:1280px;background:#f0f6fc;border-radius:14px;}
+.st-key-tour_panel [data-testid="stVerticalBlock"] {gap:.5rem;}
+.st-key-tour_panel button,.st-key-tour_invitation button,.st-key-tour_help button {border-radius:999px;}
+.st-key-tour_invitation {max-width:1280px;}
+.st-key-tour_help button {border:0;background:transparent;color:var(--career-blue);}
+.st-key-metrics [data-testid="stMetricLabel"] p {font-size:.9rem;}
 .st-key-primary h3,.st-key-comparison h3 {border:0;}
 .section-heading {border-left:4px solid var(--career-gold);padding-left:.7rem;margin:0;}
 .section-heading h2 {font-size:1.3rem;line-height:1.4;padding:0;margin:0;}
@@ -304,6 +361,13 @@ st.html("<style>" + font_rules + """
  .st-key-landing_intro [data-testid="stHorizontalBlock"] > [data-testid="stColumn"],.st-key-landing_steps [data-testid="stHorizontalBlock"] > [data-testid="stColumn"] {width:100%;flex:1 1 auto;min-width:0;}
 }
 @media(max-width:640px) {
+ .st-key-dashboard_header [data-testid="stHorizontalBlock"],.st-key-tour_invitation [data-testid="stHorizontalBlock"] {flex-direction:row!important;flex-wrap:wrap;gap:.5rem!important;}
+ .st-key-dashboard_header [data-testid="stColumn"],.st-key-tour_invitation [data-testid="stColumn"] {width:auto!important;flex:0 1 auto!important;min-width:0;}
+ .st-key-dashboard_header [data-testid="stColumn"]:first-child,.st-key-tour_invitation [data-testid="stColumn"]:first-child {width:100%!important;flex-basis:100%!important;}
+ .st-key-tour_panel [data-testid="stHorizontalBlock"] {flex-direction:row!important;gap:.5rem!important;flex-wrap:wrap;}
+ .st-key-tour_panel [data-testid="stColumn"] {width:auto!important;flex:0 1 auto!important;min-width:0;}
+ .st-key-tour_panel [data-testid="stColumn"]:nth-child(4) {display:none;}
+
  .stMainBlockContainer {padding-left:1rem;padding-right:1rem;padding-top:3.75rem;}
  .stMainBlockContainer h1 {font-size:1.6rem;}.brand-bar {align-items:flex-start;flex-direction:column;gap:.3rem;}
  .st-key-welcome_canvas {padding:1rem;}.landing-title {font-size:2rem;}
@@ -346,12 +410,16 @@ if st.query_params.get("view", "welcome") != "dashboard":
     st.html('<div class="project-footer">Independent class project. Not an official University of Delaware service.</div>')
     st.stop()
 
-heading_column, home_column = st.columns([5, 1])
-with heading_column:
-    st.title("Graduate Career Skills Radar")
-with home_column:
-    st.button("← Introduction", key="intro_return", on_click=open_introduction, width="content")
+with st.container(key="dashboard_header"):
+    heading_column, help_column, home_column = st.columns([5, 1, 1])
+    with heading_column:
+        st.title("Graduate Career Skills Radar")
+    with help_column:
+        st.button("How to use", key="tour_help", on_click=start_tour, width="content")
+    with home_column:
+        st.button("← Introduction", key="intro_return", on_click=open_introduction, width="content")
 show_project_meta()
+show_tour()
 
 if not DATA_PATH.exists():
     st.error("The dashboard CSV is missing from the project's data folder.")
@@ -359,14 +427,15 @@ if not DATA_PATH.exists():
 data = load_data(str(DATA_PATH), (DATA_PATH.stat().st_mtime_ns, CATALOG_PATH.stat().st_mtime_ns))
 
 with st.container(key="filters"):
+    st.html('<div class="section-heading"><h2>Choose your direction</h2></div>')
     filter_columns = st.columns([1.2, 1.3, 1])
     with filter_columns[0]:
-        pathway = st.selectbox("Career Pathway", PATHWAYS, key="pathway")
+        pathway = st.selectbox("Career direction", PATHWAYS, key="pathway", help="Choose the type of work you want to explore.")
     with filter_columns[1]:
-        scope_label = st.selectbox("Analysis Scope", list(SCOPES), key="scope")
+        scope_label = st.selectbox("Posting scope", list(SCOPES), key="scope", help="Choose all selected postings, explicit early-career title signals, or broader title matches. Title screening does not confirm graduate eligibility.")
     with filter_columns[2]:
         states = st.multiselect(
-            "Target State", sorted(data["target_state"].unique()), key="states",
+            "Preferred state(s)", sorted(data["target_state"].unique()), key="states",
             format_func=lambda code: STATE_NAMES.get(code, "Unspecified"),
             placeholder="All selected U.S. locations",
             help="Leave empty for all selected U.S. locations, including unspecified states.",
@@ -406,9 +475,9 @@ profile_coverage = selected_top_count / len(top) if len(top) else None
 with st.container(key="metrics"):
     metrics = st.columns(3)
     metrics[0].metric("Selected Job Postings", f"{len(selected):,}", border=True)
-    metrics[1].metric("Skill Information Coverage", f"{information_coverage:.1%}" if information_coverage is not None else "N/A", border=True)
+    metrics[1].metric("Postings with skill information", f"{information_coverage:.1%}" if information_coverage is not None else "N/A", border=True)
     metrics[2].metric(
-        "Top-Skill Coverage",
+        "My selected top skills",
         f"{profile_coverage:.1%}" if profile_coverage is not None else "N/A",
         border=True, help="Selected displayed skill terms divided by the number of displayed terms. Not a qualification or hiring score.",
     )
